@@ -1,0 +1,12 @@
+{{extend 'plantilla.html'}}
+<h2>
+LISTA DE PROVEEDORES
+</h2>
+<TABLE width="100%" border="2" cellspacing="5" cellpadding="5">
+    <TR><TH>NOMBRE</TH><TH>RAZ&Oacute;N SOCIAL</TH></th><TH>DIRECCI&Oacute;N</TH><TH>CIUDAD</TH><TH>TELEFONO</TH><TH>CUIT</TH><TH>Opciones</TH></TR>
+    {{for x in dp: }}
+    <TR><TD>{{=x.nombre}}</TD><TD>{{=x.razon_social}}</TD><TD>{{=x.direccion}}</TD><TD>{{=x.ciudad}}</TD><TD>{{=x.telefono}}</TD><TD>{{=x.cuit}}</TD>
+     <TD><A href="{{=URL(c='bajas', f='borrar_proveedor', args=(x.id, ))}}">BORRAR</A>
+        <A href="{{=URL(c='modificaciones', f='editar_proveedor', args=(x.id, ))}}">EDITAR</A> </TD></TR>
+    {{pass}}
+</TABLE>

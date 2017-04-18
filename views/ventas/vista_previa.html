@@ -1,0 +1,71 @@
+{{extend 'layout.html'}}
+<h1>VISTA PREVIA DEL COMPROBANTE</h1>
+<form class="form-horizontal">
+    <div class="form-group">
+        <div class="col-xs-6">
+        </div>
+        <div class="col-xs-6 text-right">
+            <h1>Factura Tipo: A</h1>
+            <h1><small>N° {{=venta.N_Factura}}</small></h1>
+            <h1><small>Fecha: {{=venta.fecha}}</small></h1>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-xs-5">
+            <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>De: <a href="#">STOREPHONE</a></h4></div>
+            <div class="panel-body"></div>
+            </div>
+            </div>
+            <div class="col-xs-2"></div>
+            <div class="col-xs-5">
+            <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>Para : <a href="#">{{=cliente.nombre}}</a></h4></div>
+            <div class="panel-body">DOMICILIO: {{=cliente.direccion}} </div>
+            <div class="panel-body">LOCALIDAD:{{=cliente.ciudad}}</div>
+            <div class="panel-body">DNI: {{=cliente.dni}}</div>
+            </div>
+        </div>
+        </div>
+    </div>
+<div class="form-group">
+<div class="row">
+<div class="col-xs-12">
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th><h4>Codigo de Articulo</h4></th>
+            <th><h4>Detalle</h4></th>
+            <th><h4>Cantidad</h4></th>
+            <th><h4>Precio Unitario</h4></th>
+            <th><h4>Total</h4></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{for item in items:}}
+        <tr>
+            <td>{{=item.ventas_por_articulo.id}}</td>
+            <td>{{=item.articulo.nombre}}</td>
+            <td>{{=item.ventas_por_articulo.cantidad}}</td>
+            <td class=" text-right ">${{=item.ventas_por_articulo.subtotal}}</td>
+            <td class=" text-right ">${{=item.ventas_por_articulo.subtotal*item.ventas_por_articulo.cantidad}}</td>
+
+        </tr>
+        {{pass}}
+    </tbody>
+</table>
+    
+</div>
+</div>
+</div>
+<div class="form-group">
+<div class="row">
+<div class="col-xs-12">
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th><h5><B>TOTAL BRUTO</B></h5></th>
+            <th><h5>Descuento "(10%)" </h5></th>

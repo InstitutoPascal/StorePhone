@@ -1,0 +1,12 @@
+{{extend 'plantilla.html'}}
+<h2>
+LISTA DE ARTICULOS
+</h2>
+<TABLE width="100%" border="2" cellspacing="5" cellpadding="5">
+    <TR><TH>NOMBRE</TH><TH>MODELO</TH><TH>LINEA</TH><TH>FABRICACION</TH><TH>MARCA</TH><TH>SISTEMA OPERATIVO</TH><TH>STOCK</TH><TH>OPCIONES</TH></TR>
+    {{for x in da: }}
+    <TR><TD>{{=x.nombre}}</TD><TD>{{=x.modelo}}</TD><TD>{{=x.linea}}</TD><TD>{{=x.fabricacion}}</TD><TD>{{=x.marca}}</TD><TD>{{=x.sistema_operativo}}</TD><TD>{{=x.stock}}</TD>
+    <TD><A href="{{=URL(c='bajas', f='borrar_articulo', args=(x.id, ))}}">BORRAR</A>
+        <A href="{{=URL(c='modificaciones', f='editar_articulo', args=(x.id, ))}}">EDITAR</A></TD></TR>
+    {{pass}}
+</TABLE>
