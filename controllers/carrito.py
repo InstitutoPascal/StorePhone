@@ -11,3 +11,7 @@ def detalle():
 def confirmacion():
     "confirmacion de compra"
     return dict(message="hello from carrito.py")
+
+def factura():
+    "Factura de la compra"
+    return dict(message="hello from carrito.py")
