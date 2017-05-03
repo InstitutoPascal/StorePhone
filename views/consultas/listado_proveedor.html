@@ -2,7 +2,7 @@
 <h2>
 LISTA DE PROVEEDORES
 </h2>
-<TABLE width="100%" border="2" cellspacing="5" cellpadding="5">
+<table class="table table-hover">
     <TR><TH>NOMBRE</TH><TH>RAZ&Oacute;N SOCIAL</TH></th><TH>DIRECCI&Oacute;N</TH><TH>CIUDAD</TH><TH>TELEFONO</TH><TH>CUIT</TH><TH>Opciones</TH></TR>
     {{for x in dp: }}
     <TR><TD>{{=x.nombre}}</TD><TD>{{=x.razon_social}}</TD><TD>{{=x.direccion}}</TD><TD>{{=x.ciudad}}</TD><TD>{{=x.telefono}}</TD><TD>{{=x.cuit}}</TD>

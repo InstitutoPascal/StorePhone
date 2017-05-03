@@ -2,7 +2,8 @@
 <H2>
 LISTA DE CLIENTES
 </H2>
-<TABLE width="100%" border="2" cellspacing="5" cellpadding="5">
+
+<table class="table table-hover">
     <TR><TH>APELLIDO</TH><TH>NOMBRE</TH><TH>DNI</TH><TH>DIRECCI&Oacute;N</TH><TH>CIUDAD</TH><TH>CUIL</TH><TH>SEXO</TH><TH>NOMBRE DE USUARIO</TH><TH>Opciones</TH></TR>
     {{for x in dc: }}
     <TR><TD>{{=x.apellido}}</TD><TD>{{=x.nombre}}</TD><TD>{{=x.dni}}</TD><TD>{{=x.direccion}}</TD><TD>{{=x.ciudad}}</TD><TD>{{=x.cuil}}</TD><TD>{{=x.sexo}}</TD><TD>{{=x.usuario}}</TD><TD>
