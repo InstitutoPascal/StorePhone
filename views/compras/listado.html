@@ -1,3 +1,27 @@
-{{extend 'layout.html'}}
-<h1>This is the compras/listado.html template</h1>
-{{=BEAUTIFY(response._vars)}}
+{{extend 'plantilla.html'}}
+<H2>
+LISTA DE COMPRAS
+</H2>
+<table class="table table-hover">
+    <TR><TH>N Factura</TH>
+        <TH>Fecha</TH>
+        <TH>P Unitario</TH>
+        <TH>Proveedor</TH>
+        <TH>Cantidad</TH>
+        <TH>Detalle</TH>
+        <TH>Total</TH>
+        <TH>Comprobante</TH>
+    </TR>
+    {{for x in c:}}
+    <TR><TD>{{=x.N_Factura}}</TD>
+        <TD>{{=x.fecha}}</TD>
+        <TD>{{=x.p_unitario}}</TD>
+        <TD>{{=x.proveedor}}</TD>
+        <TD>{{=x.cantidad}}</TD>
+        <TD>{{=x.detalle}}</TD>
+        <TD>{{=x.total}}</TD>
+        <TD>
+            <A button>COMPROBANTE</A>
+        </TD></TD></TR>
+    {{pass}}
+</TABLE>

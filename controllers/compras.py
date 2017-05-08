@@ -1,12 +1,22 @@
 # -*- coding: utf-8 -*-
 # try something like
+@auth.requires_membership(role='Administrador')
 def index():
     "Opcion para realizar una compra, se detallara un listado a completar"
-    return dict(message="hello from compras.py")
+    form=SQLFORM(db.compras)
+    if form.accepts(request.vars, session):
+        response.flash = 'Formulario correctamente cargado'
+    elif form.errors:
+		response.flash = 'Su formulario contiene errores, porfavor modifiquelo'
+    else:
+		response.flash = 'Por favor rellene el formulario'
+    return dict(f=form)
 
+@auth.requires_membership(role='Administrador')
 def listado():
-    "Listar las compras que se realizaron, detallado los nombres de proveedor la cantidad y la fecha"
-    return dict(message="hello from compras.py")
+    "Listado de las compras que se realizo"
+    datos_compras=db().select(db.compras.ALL)
+    return dict (c=datos_compras)
 
 def subirComprobante():
     "Escanear la factura que se realizo la compra"

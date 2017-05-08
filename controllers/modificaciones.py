@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # intente algo como
 def index(): return dict(message="hello from modificaciones.py")
-@auth.requires_membership(role='Gerente')
+@auth.requires_membership(role='Administrador')
 def editar_cliente():
     # obtengo el primer argumento (ver URL)
     id_cliente = request.args[0]
@@ -18,7 +18,7 @@ def editar_cliente():
     else:
 		response.flash = 'Por favor rellene el formulario'
     return dict(f=form)
-@auth.requires_membership(role='Gerente')
+@auth.requires_membership(role='Administrador')
 def editar_proveedor():
     # obtengo el primer argumento (ver URL)
     id_proveedor = request.args[0]
@@ -35,7 +35,7 @@ def editar_proveedor():
     else:
 		response.flash = 'Por favor rellene el formulario'
     return dict(f=form)
-@auth.requires_membership(role='Gerente')
+@auth.requires_membership(role='Administrador')
 def editar_articulo():
     # obtengo el primer argumento (ver URL)
     id_articulo = request.args[0]

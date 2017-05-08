@@ -113,3 +113,7 @@ def confirmar():
                 id_cliente=session["id_cliente"], fecha=session["fecha"], 
                 nro_cbte=session["nro_comprobante"], 
                 reg_cliente=reg_cliente, total=total)
+
+@auth.requires_membership(role='Supervisor')
+def listado_ventas():
+    return dict(message="hello from carrito.py")

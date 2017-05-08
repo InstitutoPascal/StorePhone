@@ -136,22 +136,26 @@ def _():
 if DEVELOPMENT_MENU: _()
 
 if "auth" in locals(): auth.wikimenu()
-if auth.has_membership(role='Gerente'):
-    response.menu+=[(T('Altas'),False,'#',
-                 [(T('Clientes'),False,URL(request.application,'altas','alta_cliente'),[]),
-                 (T('Proveedores'),False,URL(request.application,'altas','alta_proveedor'),[]),
-                 (T('Articulos'),False,URL(request.application,'altas','alta_articulo'),[])],
+if auth.has_membership(role='Supervisor'):
+    response.menu+=[(T('Ventas'),False,'#',
+                 [(T('Ventas'),False,URL(request.application,'ventas','listado_ventas'),[])],
                 )]
-
-response.menu+=[(T('Ventas'),False,URL(request.aplication,'ventas','inicio_ventas'),[])]
-if auth.has_membership(role='Gerente'):
+if auth.has_membership(role='Supervisor'):
+    response.menu+=[(T('Productos'),False,'#',
+                     [(T('Productos'),False,URL(request.application,'stock','listado'),[])],
+                )]
+if auth.has_membership(role='Administrador'):
+    response.menu+=[(T('ABM'),False,'#',
+                 [(T('Altas'),False,'#',
+                   [(T('Proveedores'),False,URL(request.application,'altas','alta_proveedor'),[]),
+                    (T('Articulos'),False,URL(request.application,'altas','alta_articulo'),[])],),
+                  (T('Baja y Modificacion'),False,'#',
+                   [(T('Proveedores'),False,URL(request.application,'consultas','listado_proveedor'),[]),
+                    (T('Articulos'),False,URL(request.application,'consultas','listado_articulo'),[]),],),
+                 ],
+                )]
+if auth.has_membership(role='Administrador'):
     response.menu+=[(T('Consultas'),False,'#',
-                 [(T('Clientes'),False,URL(request.application,'consultas','listado_clientes'),[]),
-                 (T('Proveedores'),False,URL(request.application,'consultas','listado_proveedor'),[]),
-                 (T('Articulos'),False,URL(request.application,'consultas','listado_articulo'),[])],
-                )]
-if auth.has_membership(role='Gerente'):
-    response.menu+=[(T('Listado'),False,'#',
                  [(T('Clientes'),False,'#',
                    [(T('Por Ciudad'),False,URL(request.application,'listado','clientes_por_ciudad'),[]),
                     (T('Por DNI'),False,URL(request.application,'listado','clientes_por_dni'),[])],),
@@ -166,3 +170,7 @@ if auth.has_membership(role='Gerente'):
                     (T('Por Ciudad'),False,URL(request.application,'listado','proveedor_por_ciudad'),[]),],),
                  ],
                 )]
+if auth.has_membership(role='Administrador'):
+    response.menu+=[(T('Compras'),False,'#',
+                 [(T("Lista de compras"),False,URL(request.application,"compras","listado"),[]),
+                  (T("Nuevo"),False,URL(request.application,'compras','index'),[]),],)]
