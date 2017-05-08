@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
 # try something like
+@auth.requires_membership(role='Supervisor')
 def listado():
-    return dict(message="hello from stock.py")
+    datos_articulo=db().select(db.articulo.ALL)
+    return dict (da=datos_articulo)

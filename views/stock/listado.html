@@ -1,3 +1,24 @@
-{{extend 'layout.html'}}
-<h1>This is the stock/listado.html template</h1>
-{{=BEAUTIFY(response._vars)}}
+{{extend 'plantilla.html'}}
+<H2>
+LISTA DE PRODUCTOS
+</H2>
+<table class="table table-hover">
+    <TR><TH>NOMBRE</TH>
+        <TH>MODELO</TH>
+        <TH>LINEA</TH>
+        <TH>FABRICACION</TH>
+        <TH>MARCA</TH>
+        <TH>SISTEMA OPERATIVO</TH>
+        <TH>STOCK</TH>
+    </TR>
+    {{for x in da: }}
+    <TR><TD>{{=x.nombre}}</TD>
+        <TD>{{=x.modelo}}</TD>
+        <TD>{{=x.linea}}</TD>
+        <TD>{{=x.fabricacion}}</TD>
+        <TD>{{=x.marca}}</TD>
+        <TD>{{=x.sistema_operativo}}</TD>
+        <TD>{{=x.stock}}</TD>
+    </TR>
+    {{pass}}
+</TABLE>
