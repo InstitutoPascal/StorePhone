@@ -1,3 +1,62 @@
 {{extend 'layout.html'}}
-<h1>This is the catalogo/index.html template</h1>
-{{=BEAUTIFY(response._vars)}}
+<div class="right_col" role="main" style="min-height: 1014px;">
+
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Store Phone</h3>
+              </div>
+
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                    <input class="form-control" placeholder="Buscar por..." type="text">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">IR</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>PRODUCTOS</h2>
+                    <hr>  
+                    <div class="col-md-7 col-sm-7 col-xs-12">
+                      <div class="product-image">
+                      </div>
+                    </div>
+
+                    <div class="col-md-5 col-sm-5 col-xs-12" style="border:0px solid #e5e5e5;">
+                      <h3 class="prod_title">SAMSUNG</h3>
+                      <div class="">
+                        <h2 class="bg-success">
+                            <strong>CELULAR SAMSUNG J7</strong>
+                        <h4>Colores Disponibles</h4> 
+                        <ul class="list-inline prod_color">
+                          <li>
+                            <button type="button" class="btn btn-default">Blanco</button>
+                          </li>
+                        </ul>
+                      </div>
+                      <br>
+                      <div class="">
+                        <div class="product_price">
+                          <p class="text-success"> <h2>$ 6500</h2> </p>
+                          <br>
+                        </div>
+                      </div>
+
+                      <div class="">
+                        <a type="button" class="btn btn-default btn-lg" href="{{=URL(c="catalogo",f="estadisticas")}}">ESTADISTICAS</a>
+                        <a type="button" class="btn btn-default btn-lg" href="{{=URL(c="catalogo",f="comparar")}}">COMPARAR</a>
+                      </div>
+                      <hr>
+                        <a type="button" class="btn btn-default btn-lg" href="{{=URL(c="carrito",f="index")}}">COMPRAR</a>
+              </div>
+            </div>
+          </div>
+        </div>

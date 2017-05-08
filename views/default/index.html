@@ -13,9 +13,30 @@
 {{end}}
 
 {{if 'message' in globals():}}
-<h2>Bienvenidos a StorePhone</h2>
-<p class="lead">{{=T('Sean bienvenidos a StorePhone la empresa encargada de vender celulares.')}}</p>
-<p class="lead">{{=T(' ¡Compra aca lo que no podes comprar en ningun otro lado!')}}</p>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-6 col-md-8"></div>
+  <div class="col-xs-6 col-md-4"></div>
+</div>
+<div class="row">
+  <div class="col-xs-6 col-sm-4"></div>
+  <div class="col-xs-6 col-sm-4">Store Phone</div>
+  <!-- Optional: clear the XS cols if their content doesn't match in height -->
+  <div class="clearfix visible-xs-block"></div>
+  <div class="col-xs-6 col-sm-4"></div>
+</div>
+
+
+<div class="row">
+  <div class="col-xs-12 col-sm-6 col-md-8"></div>
+  <div class="col-xs-6 col-md-4"></div>
+</div>
+<div class="row">
+  <div class="col-xs-6 col-sm-4"></div>
+  <div class="col-xs-6 col-sm-4"><a href="{{=URL(c="catalogo",f="index")}}" class="btn btn-success" role="button">CATALOGO</a> </div>
+  <div class="clearfix visible-xs-block"></div>
+  <div class="col-xs-6 col-sm-4"></div>
+</div>
 <!--ol>
   <li>{{=T('You are successfully running web2py')}}</li>
   <li>{{=XML(T('You visited the url %s', A(request.env.path_info,_href=request.env.path_info)))}}</li>

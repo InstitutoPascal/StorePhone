@@ -3,7 +3,8 @@
 
 def index():
     "pagina de inicio del catalogo"
-    return dict(message="hello from catalogo.py")
+    datos_articulo=db().select(db.articulo.ALL)
+    return dict (da=datos_articulo)
 
 def caracteristicas():
     "pagina caracteristicas de celulares"
