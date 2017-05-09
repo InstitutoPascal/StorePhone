@@ -8,7 +8,7 @@ LISTA DE COMPRAS
         <TH>Precio Unitario</TH>
         <TH>Proveedor</TH>
         <TH>Cantidad</TH>
-        <TH>Detalle</TH>
+        <TH>Articulo</TH>
         <TH>Total</TH>
     </TR>
     {{for x in c: }}
@@ -17,7 +17,7 @@ LISTA DE COMPRAS
         <TD>{{=x.p_unitario}}</TD>
         <TD>{{=x.proveedor}}</TD>
         <TD>{{=x.cantidad}}</TD>
-        <TD>{{=x.detalle}}</TD>
+        <TD>{{=x.id_articulo}}</TD>
         <TD>{{=x.total}}</TD>
     </TR>
     {{pass}}

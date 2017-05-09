@@ -139,9 +139,10 @@ db.define_table('compras',
 	db.Field('p_unitario','integer'),
     db.Field('proveedor',db.proveedor),
     db.Field('cantidad','integer'),
-    db.Field('detalle','string'),
+    db.Field('id_articulo',db.articulo),
     db.Field('total','integer'))
 db.compras.proveedor.requires=IS_IN_DB(db,db.proveedor.id,'%(nombre)s')
+db.compras.id_articulo.requires=IS_IN_DB(db,db.articulo.id,'%(nombre)s')
 
 db.define_table('ventas',
     db.Field('fecha','date'),
