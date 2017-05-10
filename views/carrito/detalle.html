@@ -1,20 +1,18 @@
 {{extend 'layout.html'}}
 <div class="right_col" role="main" style="min-height: 1014px;">
-
-          <div class="">
-            <div class="page-title">
-              <div class="title_left">
-                <h2><center>DETALLE DE COMPRAS</center></h2>
-              </div>
-                <div class="clearfix"></div>
-            <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>PRODUCTOS</h2>
-                    <hr>  
-                    <div class="col-md-7 col-sm-7 col-xs-12">
-                      <table class="table table-hover">
+    <div class="page-title">
+        <div class="title_left">
+            <h2><center>DETALLE DE COMPRAS</center></h2>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+        <div class="x_title">
+             <h2>PRODUCTOS</h2>
+        <hr>  
+        <div class="col-md-7 col-sm-7 col-xs-12">
+              <table class="table table-hover">
                             <tr class="info">
                                 <th>SAMSUNG J7 </th>
                                     <td> </td>
@@ -33,28 +31,45 @@
                                 <td>$6500 </td>  
                             </tr>
                        </table>
-                      </div>
+                     </div>
                     </div>
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-left top_search">
-                  <div class="input-group">
-                      
-                    </span>
+              
                   </div>
                 </div>
               </div> 
 <div class="">
 
               </div>
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+              <!--- 
+<div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search"> -->
                   <label for="campo_tipo" class="col-sm-2 control-label">TIPO DE PAGO</label>
-            <div class="col-sm-2">
-               <select class="form-control" name="forma_pago" id="campo_tipo">
-                  <option>Debito</option>
-                  <option>Credito</option>
-                </select>
-            </div>
+                  </div>
+                <div class="col-sm-2">
+                    <select class="form-control" name="forma_pago" id="campo_tipo">
+                      <option>Debito</option>
+                      <option>Credito</option>
+                    </select>
+                </div>
+            <div class="col-xs-6">
+           <div class="title_right">
+                <div class="col-md-6 col-sm-6 col-xs-6 form-group pull-left top_search">
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6 form-group pull-right top_search">     
+                  <p class="lead">Tarjetas Trabajadas:</p>
+                  <div class="product-image">
+                      {{=IMG(_src=URL("static","images/visa.png"), _class="img-rounded")}}
+                      {{=IMG(_src=URL("static","images/mastercard.png"), _class="img-rounded")}}
+                      {{=IMG(_src=URL("static","images/america_express.png"), _class="img-rounded")}}
+                      {{=IMG(_src=URL("static","images/paypal.png"), _class="img-rounded")}}
+                  </div>
+                  <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                    6 CUOTAS SIN INTERES: Visa <br>
+                    3 CUOTAS SIN INTERES: Mastercard <br>
+                    1 PAGO SIN INTERES: American Express , Paypal <br>
+                  </p>
+                  </div>
+                </div>
             <div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                   <div class="input-group">
