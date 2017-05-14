@@ -13,3 +13,7 @@ def caracteristicas():
 def comparacion():
     "pagina de comparacion entre celulares"
     return dict(message="funcion  comparacion")
+
+def inicio():
+    "pagina de inicio del catalogo"
+    return dict(message="funcion  inicio")
