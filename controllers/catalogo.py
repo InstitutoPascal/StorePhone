@@ -17,3 +17,11 @@ def comparacion():
 def inicio():
     "pagina de inicio del catalogo"
     return dict(message="funcion  inicio")
+
+def motorola():
+    "pagina de catalogo discriminados por modelo motorola"
+    return dict(message="funcion  motorola")
+
+def samsung():
+    "pagina de catalogo discriminados por modelo samsung"
+    return dict(message="funcion  samsung")
