@@ -1,79 +1,99 @@
-{{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
-{{extend 'plantilla.html'}}
+{{extend 'layout.html'}}
+<!-- Page Content -->
+    <div class="container">
 
-{{block header}}
-    <header class="container-fluid background">
-      <div class="jumbotron text-center">
-        {{if response.title:}}
-        <h1>{{=response.title}}
-          <small>{{=response.subtitle or ''}}</small></h1>
-        {{pass}}
-      </div>
-    </header>
-{{end}}
+        <!-- Jumbotron Header -->
+        <header class="jumbotron hero-spacer">
+            <h1>Bienvenido a StorePhone!</h1>
+            <p>En este catalogo podra ver todos los equipos con los que contamos a la venta.<br>Recuerde que para comprar un producto debe registrarse en el sistema.</p>
+            <p><a class="btn btn-primary btn-large">Dar LINK!</a>
+            </p>
+        </header>
 
-{{if 'message' in globals():}}
+        <hr>
 
-<div class="row">
-  <div class="col-xs-12 col-sm-6 col-md-8"></div>
-  <div class="col-xs-6 col-md-4"></div>
-</div>
-<div class="row">
-  <div class="col-xs-6 col-sm-4"></div>
-  <div class="col-xs-6 col-sm-4">Store Phone</div>
-  <!-- Optional: clear the XS cols if their content doesn't match in height -->
-  <div class="clearfix visible-xs-block"></div>
-  <div class="col-xs-6 col-sm-4"></div>
-</div>
+        <!-- Title -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>Ordenados por "mas relevantes"</h3>
+            </div>
+        </div>
+        <!-- /.row -->
 
+        <!-- Page Features -->
+        <div class="row text-center">
 
-<div class="row">
-  <div class="col-xs-12 col-sm-6 col-md-8"></div>
-  <div class="col-xs-6 col-md-4"></div>
-</div>
-<div class="row">
-  <div class="col-xs-6 col-sm-4"></div>
-  <div class="col-xs-6 col-sm-4"><a href="{{=URL(c="catalogo",f="inicio")}}" class="btn btn-success" role="button">CATALOGO</a> </div>
-  <div class="clearfix visible-xs-block"></div>
-  <div class="col-xs-6 col-sm-4"></div>
-</div>
-<div class="">
-    <button type="button" class="btn btn-default btn-lg">SAMSUNG</button>
-    <a type="button" class="btn btn-default btn-lg" href="{{=URL(c="catalogo",f="motorola")}}">MOTOROLA</a>
-</div>
+            <div class="col-md-3 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                    <img src="/StorePhone/static/images/samj7.jpg">
+                    <div class="caption">
+                        <h3>Samsung Galaxy J7</h3>
+                        <p>Es el nuevo modelo de samsung J7</p>
+                        <p>
+                            <a href="{{=URL(c="catalogo",f="index")}}" class="btn btn-primary">Comprar</a> <a href="{{=URL(c="catalogo",f="caracteristicas")}}" class="btn btn-default">Más Info.</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
 
-<!--ol>
-  <li>{{=T('You are successfully running web2py')}}</li>
-  <li>{{=XML(T('You visited the url %s', A(request.env.path_info,_href=request.env.path_info)))}}</li>
-  <li>{{=XML(T('Which called the function %s located in the file %s',
-    (A(request.function+'()',_href='#'),
-    A('web2py/applications/%(application)s/controllers/%(controller)s.py' % request,
-    _href=URL('admin','default','peek', args=(request.application,'controllers',request.controller+'.py'))))))}}</li>
-  <li>{{=XML(T('The output of the file is a dictionary that was rendered by the view %s',
-    A('web2py/applications/%(application)s/views/%(controller)s/index.html' % request,
-    _href=URL('admin','default','peek',args=(request.application,'views',request.controller,'index.html')))))}}</li>
-  <li>{{=T('You can modify this application and adapt it to your needs')}}</li>
-</ol>
-{{elif 'content' in globals():}}
-{{=content}}
-{{else:}}
-{{=BEAUTIFY(response._vars)}}
-{{pass}}
+            <div class="col-md-3 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                    <img src="/StorePhone/static/images/n1.jpg">
+                    <div class="caption">
+                        <h3>MOTO G 3ra Gen</h3>
+                        <p>Nuevo motorola moto g 3ra Generacion.</p>
+                        <p>
+                            <a href="#" class="btn btn-primary">Comprar</a> <a href="#" class="btn btn-default">Más Info.</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
 
-{{block right_sidebar}}
-<div class="panel panel-info">
-  <div class="panel-heading"><h3 class="panel-title"><a class="btn-block"
-      href="{{=URL('admin','default','index')}}">
-      <i class="glyphicon glyphicon-cog"></i>
-      {{=T("admin")}}
-    </a></h3></div>
-  <div class="panel-body">
-    {{=T("Don't know what to do?")}}
-  </div>
-  <ul class="list-group">
-    <li class="list-group-item">{{=A(T("Online examples"), _href=URL('examples','default','index'))}}</li>
-    <li class="list-group-item"><a href="http://web2py.com">web2py.com</a></li>
-    <li class="list-group-item"><a href="http://web2py.com/book">{{=T('Documentation')}}</a></li>
-  </ul>
-</div-->
-{{end}}
+            <div class="col-md-3 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                    <img src="/StorePhone/static/images/lgg.jpg">
+                    <div class="caption">
+                        <h3>LG G      <br>           </br>            </h3>
+                        <p>Nuevo LG G ahora con mas memoria cache.</p>
+                        <p>
+                            <a href="#" class="btn btn-primary">Comprar</a> <a href="#" class="btn btn-default">Más Info.</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                    <img src="/StorePhone/static/images/motox2016.jpg">
+                    <div class="caption">
+                        <h3>Motorola Moto G (2016)</h3>
+                        <p>Nuevo Motorola Moto G con nucleos optimizados.</p>
+                        <p>
+                            <a href="#" class="btn btn-primary">Comprar</a> <a href="#" class="btn btn-default">Más Info.</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Your Website 2014</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
