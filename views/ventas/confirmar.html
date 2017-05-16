@@ -1,10 +1,12 @@
 {{extend 'layout.html'}}
-<h1 align="center">CONFIRMAR</h1>
-<h4 align="center"> Confirmar venta para {{=reg_cliente.nombre}}, N° Comprobante {{=nro_cbte}}, por el importe de $ {{=total}}</h4>
-<div class="form-group">
-    <div class="col-sm-5"></div>
-     <div class="col-sm-1">
-         <a href="{{=URL(c="ventas",f="guardado")}}" class="btn btn-default" role="button">ACEPTAR</a>
-         <a href="{{=URL(c="ventas",f="detalle_ventas")}}" class="btn btn-default" role="button">Volver</a>
+<header class="jumbotron hero-spacer">
+    <h3 align="center"> Confirmar compra para: {{=reg_proveedor.nombre}},<br> N° Comprobante {{=nro_cbte}},<br> Por el importe de $ {{=total}}</h4>
+</header>
+<div class="row">
+    <div class="col-xs-6">
+        <center>
+             <a href="{{=URL(c="ventas",f="guardado")}}" class="btn btn-primary" role="button">ACEPTAR</a>
+             <a href="{{=URL(c="ventas",f="detalle_ventas")}}" class="btn btn-default" role="button">Volver</a>
+         </center>
      </div>
 </div>
