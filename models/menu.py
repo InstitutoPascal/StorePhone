@@ -173,4 +173,4 @@ if auth.has_membership(role='Administrador'):
 if auth.has_membership(role='Administrador'):
     response.menu+=[(T('Compras'),False,'#',
                  [(T("Lista de compras"),False,URL(request.application,"compras","listado"),[]),
-                  (T("Nuevo"),False,URL(request.application,'compras','index'),[]),],)]
+                  (T("Nuevo"),False,URL(request.application,'compras','inicio_compras'),[]),],)]

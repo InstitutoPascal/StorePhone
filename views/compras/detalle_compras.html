@@ -1,0 +1,80 @@
+{{extend 'plantilla.html'}}
+<h1>DETALLE DE COMPRA</h1>
+<div class="form-group">
+    <h4><caption>Nro. Comprobante {{=nro_cbte}} Fecha {{=fecha}} 
+                 Proveedor {{=reg_proveedor.nombre}} 
+        </caption></h4>
+</div>
+<form class="form-horizontal" action="{{=URL(c="compras", f="detalle_compras")}}" enctype="multipart/form-data" method="POST">
+    <div class="form-group">
+        <label for="produc" class="col-sm-1 control-label">PRODUCTO</label>
+           <div class="col-sm-3">
+                <select class="form-control" id="campo_tipo" name="id_producto">
+                    {{for reg_producto in lista_productos:}}
+                  <option value="{{=reg_producto.id}}">{{=reg_producto.nombre}}</option>
+                  {{pass}}
+                </select>
+           </div>
+        <label for="cant" class="col-sm-1 control-label">CANTIDAD</label>
+           <div class="col-sm-1">
+               <input type="number" name="cantidad" class="form-control" id="cant" value="1">
+            </div>
+               <label for="precunit" class="col-sm-2 control-label">PRECIO UNITARIO</label>
+            <div class="col-sm-2">
+               <input type="number" class="form-control"  name="precio" id="precunit" step="0.01" value="0.00">
+            </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-3">
+             <input type="submit" name="agregar_item" class="btn btn-default" value="AGREGAR ITEM">
+        </div>
+    </div>
+</form>
+<form class="form-horizontal" action="{{=URL(c="compras", f="confirmar")}}" enctype="multipart/form-data" method="POST">
+    <div class="form-group">
+        <div class="col-md-10">
+          <table class="table table-hover">
+          <caption>Items de Venta</caption>
+          <thead>
+            <tr>
+                <th>#</th>
+                <th class="">Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>SubTotal</th>
+                
+            </tr>
+          </thead>
+        <tbody>
+            {{total = 0}}
+            {{for item in items_venta:}}
+            <tr>
+                {{total = total + item["precio"] * item["cantidad"]}}
+                <th scope="row">{{=item["id"]}}</th>
+                <td >{{=item["nombre"]}}</td>
+                <td align="center">{{=item["cantidad"]}}</td>
+                <td align="center">{{=item["precio"]}}</td>
+                <td align="center">{{=item["precio"] * item["cantidad"]}}</td>
+            </tr>
+            {{pass}}
+        </tbody>
+        </table>
+        </div>
+        </div>
+    <div class="form-group">
+        <div class="col-md-3">
+        <table class="table table-bordered">
+        <tbody>
+            <tr> <th scope="row">Total:</th>
+                 <td>$ {{=total}}</td>
+            </tr>
+        </tbody>
+        </table>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-1">
+           <input type="submit" class="btn btn-default" value="Confirmar">
+        </div>
+     </div>
+</form>
