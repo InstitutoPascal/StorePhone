@@ -13,3 +13,12 @@ def listado_proveedor():
 def listado_articulo():
     datos_articulo=db().select(db.articulo.ALL)
     return dict (da=datos_articulo)
+
+def reporte_ventas():
+    return dict(message="reporte_ventas")
+
+def lista_ventas():
+    # obtenemos los criterios de busqueda y generamos el reporte
+    desde = request.vars["fecha_desde"]
+    hasta = request.vars["fecha_hasta"]
+    return dict(titulo="Listando Desde: %s Hasta: %s" % (desde, hasta))
