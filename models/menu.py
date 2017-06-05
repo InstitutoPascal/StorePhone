@@ -156,18 +156,8 @@ if auth.has_membership(role='Administrador'):
                 )]
 if auth.has_membership(role='Administrador'):
     response.menu+=[(T('Consultas'),False,'#',
-                 [(T('Clientes'),False,'#',
-                   [(T('Por Ciudad'),False,URL(request.application,'listado','clientes_por_ciudad'),[]),
-                    (T('Por DNI'),False,URL(request.application,'listado','clientes_por_dni'),[])],),
-                  (T('Articulos'),False,'#',
-                   [(T('Por Codigo'),False,URL(request.application,'listado','articulos_por_codigo'),[]),
-                    (T('Por Nombre'),False,URL(request.application,'listado','articulos_por_codigo'),
-                        [(T('UNO'),False,URL(request.application,'listado','articulos_por_1_nombre'),[]),
-                         (T('VARIOS'),False,URL(request.application,'listado','articulos_por_varios_nombres'),[])])],),
-                  (T('Proveedores'),False,'#',
-                   [(T('Por Codigo'),False,URL(request.application,'listado','proveedor_por_codigo'),[]),
-                    (T('Por Razon Social'),False,URL(request.application,'listado','proveedor_por_razon_social'),[]),
-                    (T('Por Ciudad'),False,URL(request.application,'listado','proveedor_por_ciudad'),[]),],),
+                 [(T('Ventas'),False,'#',
+                   [(T('Lista de Ventas'),False,URL(request.application,'consultas','lista_ventas'),[]),],),
                  ],
                 )]
 if auth.has_membership(role='Administrador'):
