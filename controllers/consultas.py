@@ -13,10 +13,10 @@ def listado_proveedor():
 def listado_articulo():
     datos_articulo=db().select(db.articulo.ALL)
     return dict (da=datos_articulo)
-
+@auth.requires_membership(role='Administrador')
 def reporte_ventas():
     return dict(message="reporte_ventas")
-
+@auth.requires_membership(role='Administrador')
 def lista_ventas():
     # obtenemos los criterios de busqueda y generamos el reporte
     desde = request.vars["fecha_desde"]
