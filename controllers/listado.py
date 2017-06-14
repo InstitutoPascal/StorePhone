@@ -114,7 +114,7 @@ def articulos_por_varios_nombres():
        response.flash = 'Por favor, complete el Formulario'
     return dict(subtitulo=subtitulo, form=form, tabla=tablaFinal,cant=i,form2=form2)
 
-@auth.requires_membership(role='Administrador')
+
 def articulos_por_1_nombre():
     subtitulo=T('Listado de Articulos por 1 Nombre')
     tablaFinal=[]
