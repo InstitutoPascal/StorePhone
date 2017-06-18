@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 ############################ C L I E N T E S ####################################
-@auth.requires_membership(role='Administrador')
 def clientes_por_ciudad():
     subtitulo=T('Listado de Clientes por Ciudad')
     tablaFinal=[]
@@ -29,7 +28,6 @@ def clientes_por_ciudad():
        response.flash = 'Por favor, complete el Formulario'
     return dict(subtitulo=subtitulo, form=form, tabla=tablaFinal,cant=i,form2=form2)
 
-@auth.requires_membership(role='Administrador')
 def clientes_por_dni():
     subtitulo=T('Listado de Clientes por DNI')
     tablaFinal=[]
@@ -58,7 +56,7 @@ def clientes_por_dni():
     return dict(subtitulo=subtitulo, form=form, tabla=tablaFinal,cant=i,form2=form2)
 
 ################################# A R T I C U L O S ################################################
-@auth.requires_membership(role='Administrador')
+
 def articulos_por_codigo():
     subtitulo=T('Listado de Articulos por codigo')
     tablaFinal=[]
@@ -86,7 +84,7 @@ def articulos_por_codigo():
        response.flash = 'Por favor, complete el Formulario'
     return dict(subtitulo=subtitulo, form=form, tabla=tablaFinal,cant=i,form2=form2)
 
-@auth.requires_membership(role='Administrador')
+
 def articulos_por_varios_nombres():
     subtitulo=T('Listado de Articulos por Varios Nombres')
     tablaFinal=[]
@@ -143,7 +141,7 @@ def articulos_por_1_nombre():
     return dict(subtitulo=subtitulo, form=form, tabla=tablaFinal,cant=i,form2=form2)
 
 ##################################### P R O V E E D O R E S #####################################################
-@auth.requires_membership(role='Administrador')
+
 def proveedor_por_codigo():
     subtitulo=T('Listado de Proveedores por codigo')
     tablaFinal=[]
@@ -197,7 +195,6 @@ def proveedor_por_razon_social():
     else:
        response.flash = 'Por favor, complete el Formulario'
     return dict(subtitulo=subtitulo, form=form, tabla=tablaFinal,cant=i,form2=form2)
-@auth.requires_membership(role='Administrador')
 def proveedor_por_ciudad():
     subtitulo=T('Listado de Proveedores por Ciudad')
     tablaFinal=[]
