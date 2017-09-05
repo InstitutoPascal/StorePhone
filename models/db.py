@@ -128,6 +128,7 @@ db.define_table('articulo',
 	db.Field('marca','string'),
 	db.Field('sistema_operativo','string'),
 	db.Field('stock','integer'),
+    db.Field('imagen','upload'),
 	)
 db.articulo.linea.requires=IS_IN_SET(['Personal','Movistar','Claro','Libre'])
 db.articulo.marca.requires=IS_IN_SET(['Samsung','LG','Motorola','Huawei','Noblex'])
