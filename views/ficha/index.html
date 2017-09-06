@@ -1,0 +1,51 @@
+{{extend 'layout.html'}}
+<div class="right_col" role="main" style="min-height: 1014px;">
+
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Store Phone</h3>
+              </div>
+
+            <div class="clearfix"></div>
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <hr>  
+                    <div class="col-md-7 col-sm-7 col-xs-12">
+                      <div class="product-image">
+                      {{=IMG( _src=URL(c="consultas", f="mostrar",args=[x.id]))}}
+                      </div>
+                    </div>
+
+                    <div class="col-md-5 col-sm-5 col-xs-12" style="border:0px solid #e5e5e5;">
+                      <h3 class="prod_title">{{=x.marca}}</h3>
+                      <div class="">
+                        <h2 class="bg-success">
+                            <strong>{{=x.nombre}}</strong>
+                        <h4>Colores Disponibles</h4> 
+                        <ul class="list-inline prod_color">
+                          <li>
+                            <button type="button" class="btn btn-default">Blanco</button>
+                          </li>
+                        </ul>
+                      </div>
+                      <br>
+                      <div class="">
+                        <div class="product_price">
+                          <p class="text-success"> <h2>{{=x.precio}}</h2> </p>
+                          <br>
+                        </div>
+                      </div>
+
+                      <div class="">
+                        <a type="button" class="btn btn-default btn-lg" href="{{=URL(c="catalogo",f="caracteristicas")}}">CARACTERISTICAS</a>
+                        <a type="button" class="btn btn-default btn-lg" href="{{=URL(c="catalogo",f="comparacion")}}">COMPARAR</a>
+                      </div>
+                      <a type="button" class="btn btn-default btn-lg" href="{{=URL(c="carrito",f="index")}}">COMPRAR<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a>
+                      <hr>
+                        <a type="button" class="btn btn-default btn-lg" href="{{=URL(c="default",f="index")}}">VOLVER</a>
+              </div>
+            </div>
+          </div>
