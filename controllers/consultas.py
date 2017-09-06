@@ -13,7 +13,24 @@ def listado_proveedor():
 def listado_articulo():
     datos_articulo=db().select(db.articulo.ALL)
     return dict (da=datos_articulo)
-@auth.requires_membership(role='Administrador')
+def mostrar():
+    # obtengo el id de prodcuto desde la URL
+    prod_id = request.args[0]
+    # consultamos a la bd para que traiga el registro del primer producto:
+    reg = db(db.articulo.id==prod_id).select(db.articulo.imagen).first()
+    # obtenemos la imagen (nombre de archivo completo, stream=flujo de datos=archivo abierto -open-):
+    (filename, stream) = db.articulo.imagen.retrieve(reg.imagen)
+    # obtenemos extension original para determinar tipo de contenido:
+    import os.path
+    ext = os.path.splitext(filename)[1].lower()
+    if ext in (".jpg", ".jpeg", ".face"):
+        formato = "image/jpeg"
+    elif ext in (".png"):
+        formato = "image/png"
+    response.headers['Content-Type'] = formato
+    # devolver al navegador el contenido de la imagen
+    return stream
+auth.requires_membership(role='Administrador')
 def reporte_ventas():
     return dict(message="reporte_ventas")
 @auth.requires_membership(role='Administrador')

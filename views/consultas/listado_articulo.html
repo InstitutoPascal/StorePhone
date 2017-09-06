@@ -7,6 +7,7 @@ LISTA DE ARTICULOS
     {{for x in da: }}
     <TR><TD>{{=x.nombre}}</TD><TD>{{=x.modelo}}</TD><TD>{{=x.linea}}</TD><TD>{{=x.fabricacion}}</TD><TD>{{=x.marca}}</TD><TD>{{=x.sistema_operativo}}</TD><TD>{{=x.stock}}</TD>
     <TD><A href="{{=URL(c='bajas', f='borrar_articulo', args=(x.id, ))}}">BORRAR</A>
-        <A href="{{=URL(c='modificaciones', f='editar_articulo', args=(x.id, ))}}">EDITAR</A></TD></TR>
+        <A href="{{=URL(c='modificaciones', f='editar_articulo', args=(x.id, ))}}">EDITAR</A></TD>
+        <TD>{{=IMG( _src=URL(f="mostrar",args=[x.id]))}}</TD></TR>
     {{pass}}
 </TABLE>

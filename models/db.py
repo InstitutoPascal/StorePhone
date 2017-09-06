@@ -112,8 +112,8 @@ db.define_table('proveedor',
     db.Field('razon_social','string'),
 	db.Field('direccion','string'),
     db.Field('ciudad','string'),
-	db.Field('telefono','integer'),
-	db.Field('cuit','integer'),
+	db.Field('telefono','string'),
+	db.Field('cuit','string'),
     )
 db.proveedor.cuit.requires=IS_ALPHANUMERIC()
 
