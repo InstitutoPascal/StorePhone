@@ -1,7 +1,6 @@
 {{extend 'plantilla.html'}}
 <!-- Page Content -->
     <div class="container">
-
         <!-- Jumbotron Header -->
         <header class="jumbotron hero-spacer">
             <h1>Bienvenido a StorePhone!</h1>
@@ -10,57 +9,24 @@
 
         <hr>
 
-        <!-- Title -->
+        <!-- Titulo -->
         <div class="row">
             <div class="col-lg-12">
                 <h3>Ordenados por "mas relevantes"</h3>
             </div>
         </div>
-        <!-- /.row -->
-
-        <!-- Page Features -->
-        <div class="row text-center">
-
+             <div class="row text-center">
+             <!-- Recorre el listado de los articulos -->
+             {{for x in da: }}
             <div class="col-md-3 col-sm-6 hero-feature">
                 <div class="thumbnail">
                     <a class="noeffect" href="{{=URL(c="catalogo",f="index")}}" class="btn btn-primary">
-                        <img src="/StorePhone/static/images/samj7.jpg">
+                        <!-- Ingresa la imagen -->
+                        {{=IMG( _src=URL(c="consultas", f="mostrar",args=[x.id]))}}
                     </a>
                     <div class="caption">
-                        <h3>Samsung Galaxy J7</h3>
+                        <h3>{{=x.nombre}}</h3>
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-3 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                    <a class="noeffect">
-                        <img src="/StorePhone/static/images/n1.jpg">
-                    </a>
-                    <div class="caption">
-                        <h3>MOTO G 3ra Generaci&oacuten</h3>
-                   </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                    <a class="noeffect">
-                        <img src="/StorePhone/static/images/lgg.jpg">
-                    </a>
-                 <div class="caption">
-                        <h3>LG G</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                    <a class="noeffect">
-                        <img src="/StorePhone/static/images/motox2016.jpg">
-                    </a>
-                    <div class="caption">
-                        <h3>Motorola Moto G </h3>
-                    </div>
-                </div>
-            </div>
+            {{pass}}
