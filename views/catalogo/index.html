@@ -1,52 +1,32 @@
-{{extend 'layout.html'}}
-<div class="right_col" role="main" style="min-height: 1014px;">
+{{extend 'plantilla.html'}}
+<!-- Page Content -->
+    <div class="container">
+        <!-- Jumbotron Header -->
+        <header class="jumbotron hero-spacer">
+            <h1>Bienvenido a StorePhone!</h1>
+            <p>En este catalogo podra ver todos los equipos con los que contamos a la venta.<br>Recuerde que para comprar un producto debe registrarse en el sistema.</p>
+        </header>
 
-          <div class="">
-            <div class="page-title">
-              <div class="title_left">
-                <h3>Store Phone</h3>
-              </div>
+        <hr>
 
-            <div class="clearfix"></div>
-            <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <hr>  
-                    <div class="col-md-7 col-sm-7 col-xs-12">
-                      <div class="product-image">
-                      {{=IMG( _src=URL(c="consultas", f="mostrar",args=[x.id]))}}
-                      </div>
-                    </div>
-
-                    <div class="col-md-5 col-sm-5 col-xs-12" style="border:0px solid #e5e5e5;">
-                      <h3 class="prod_title">{{=x.marca}}</h3>
-                      <div class="">
-                        <h2 class="bg-success">
-                            <strong>{{=x.nombre}}</strong>
-                        <h4>Colores Disponibles</h4> 
-                        <ul class="list-inline prod_color">
-                          <li>
-                            <button type="button" class="btn btn-default">Blanco</button>
-                          </li>
-                        </ul>
-                      </div>
-                      <br>
-                      <div class="">
-                        <div class="product_price">
-                          <p class="text-success"> <h2>{{=x.precio}}</h2> </p>
-                          <br>
-                        </div>
-                      </div>
-
-                      <div class="">
-                        <a type="button" class="btn btn-default btn-lg" href="{{=URL(c="catalogo",f="caracteristicas")}}">CARACTERISTICAS</a>
-                        <a type="button" class="btn btn-default btn-lg" href="{{=URL(c="catalogo",f="comparacion")}}">COMPARAR</a>
-                      </div>
-                      <a type="button" class="btn btn-default btn-lg" href="{{=URL(c="carrito",f="index")}}">COMPRAR<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a>
-                      <hr>
-                        <a type="button" class="btn btn-default btn-lg" href="{{=URL(c="default",f="index")}}">VOLVER</a>
-              </div>
+        <!-- Titulo -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>Ordenados por "mas relevantes"</h3>
             </div>
-          </div>
         </div>
+             <div class="row text-center">
+             <!-- Recorre el listado de los articulos -->
+             {{for x in da: }}
+            <div class="col-md-3 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                    <a class="noeffect" href="{{=URL(c="catalogo",f="index")}}" class="btn btn-primary">
+                        <!-- Ingresa la imagen -->
+                        {{=IMG( _src=URL(c="consultas", f="mostrar",args=[x.id]))}}
+                    </a>
+                    <div class="caption">
+                        <h3>{{=x.nombre}}</h3>
+                    </div>
+                </div>
+            </div>
+            {{pass}}
