@@ -161,6 +161,11 @@ db.define_table('ventas_por_articulo',
     db.Field('cantidad','integer'),
     db.Field('subtotal','integer'))
 
+db.define_table('estados_de_ventas',
+    db.Field('estado','string'),
+    db.Field('progreso','integer'),
+    db.Field('color','string'))
+
 
 db.define_table('compras_por_articulo',
     db.Field('venta',db.compras),
