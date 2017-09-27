@@ -1,0 +1,60 @@
+{{extend 'layout.html'}}
+<div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                      <div class="table-responsive"> 
+                        <table class="table table-bordered table-striped">
+                            {{x=d1}}
+                            <h2>
+                             {{=x.nombre}}   
+                            </h2>
+                                <thead> 
+                                <tr>
+                                    <th> <h3>Procesador
+                                    </h3></th> 
+                                </tr>
+                             </thead> 
+                             <tbody> 
+                                 <tr> <th>Procesador</th> 
+                                     <td>Octacore 1.6 ghz</td>
+                                 </tr>
+                              </tbody> 
+                        </table> 
+                        </div>
+                   </div>
+                </div>
+                 {{pass}}
+</div>
+<div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-left top_search">
+                  <div class="input-group">
+                      <div class="table-responsive"> 
+                        <table class="table table-bordered table-striped">
+                            {{x=d2}}
+                            <h2>
+                            {{=x.nombre}}    
+                            </h2>
+                                <thead> 
+                                <tr>
+                                    <th> <h3>Procesador
+                                    </h3></th> 
+                                </tr>
+                             </thead> 
+                             <tbody> 
+                                 <tr> <th>Procesador</th> 
+                                     <td>Octacore 1.6 ghz</td>
+                                 </tr>
+                              </tbody> 
+                        </table> 
+                        </div>
+                   </div>
+                </div>
+                 {{pass}}
+</div>
+<div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-center top_search">
+                  <div class="input-group">
+                  <a type="button" class="btn btn-default btn-lg" href="{{=URL(c="ficha",f="volver", args=[x.id])}}">VOLVER</a>
+                  </div>
+                </div>
+</div>
