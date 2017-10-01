@@ -121,8 +121,21 @@ db.define_table('articulo',
 	db.Field('id_articulo','id'),
     db.Field('proveedor',db.proveedor),
 	db.Field('nombre','string'),
-	db.Field('modelo','string'),
-	db.Field('linea','string'),
+    db.Field('pantalla','string'),
+    db.Field('procesador','string'),
+	db.Field('camara_principal','string'),
+    db.Field('camara_secundaria','string'),
+    db.Field('red','string'),
+    db.Field('frecuencia_gsm','string'),
+    db.Field('frecuencia_wcdma','string'),
+    db.Field('bateria','string'),
+    db.Field('bateria_modo_stand_by','string'),
+    db.Field('memoria_ram','string'),
+    db.Field('memoria_interna','string'),
+    db.Field('memoria_externa','string'),
+    db.Field('bluetooth','string'),
+    db.Field('marcacion_por_voz','string'),
+    db.Field('linea','string'),
     db.Field('precio','float'),
 	db.Field('fabricacion','date'),
 	db.Field('marca','string'),
@@ -130,6 +143,9 @@ db.define_table('articulo',
 	db.Field('stock','integer'),
     db.Field('imagen','upload'),
 	)
+
+db.articulo.bluetooth.requires=IS_IN_SET(['Si','No'])
+db.articulo.marcacion_por_voz.requires=IS_IN_SET(['Si','No'])                
 db.articulo.linea.requires=IS_IN_SET(['Personal','Movistar','Claro','Libre'])
 db.articulo.marca.requires=IS_IN_SET(['Samsung','LG','Motorola','Huawei','Noblex'])
 db.articulo.proveedor.requires=IS_IN_DB(db,db.proveedor.id,'%(nombre)s')
