@@ -3,7 +3,25 @@
 @auth.requires_login()
 def index():
     "index del carrito"
-    return dict(message="hello from carrito.py")
+    # creo una lista vacia en la sesion (para guardar los id de los articulos)
+    if not session["carrito"]:
+        session["carrito"] = []
+    # si viene el id en el request, lo agrego a la session:
+    if request.args:
+        id_articulo = int(request.args[0])
+        session["carrito"].append(id_articulo)
+    # busco todos los articulos cuyo id esté en la sesion (carrito)
+    datos_articulo=[]
+    for id_articulo in session ["carrito"]:
+        reg = db(db.articulo.id==id_articulo).select().first()
+        datos_articulo.append(reg)
+    return dict (da=datos_articulo)
+@auth.requires_login()
+def eliminar():
+    if request.args:
+        id_articulo = int(request.args[0])
+        session["carrito"].remove(id_articulo)
+    redirect(URL(c="carrito", f="index"))
 
 @auth.requires_login()
 def detalle():
