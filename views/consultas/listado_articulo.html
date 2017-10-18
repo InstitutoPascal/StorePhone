@@ -5,7 +5,7 @@ LISTA DE ARTICULOS
 <table class="table table-hover">
     <TR><TH>NOMBRE</TH><TH>MODELO</TH><TH>LINEA</TH><TH>FABRICACION</TH><TH>MARCA</TH><TH>SISTEMA OPERATIVO</TH><TH>STOCK</TH><TH>OPCIONES</TH></TR>
     {{for x in da: }}
-    <TR><TD>{{=x.nombre}}</TD><TD>{{=x.modelo}}</TD><TD>{{=x.linea}}</TD><TD>{{=x.fabricacion}}</TD><TD>{{=x.marca}}</TD><TD>{{=x.sistema_operativo}}</TD><TD>{{=x.stock}}</TD>
+    <TR><TD>{{=x.nombre}}</TD><TD>{{#=x.modelo}}</TD><TD>{{#=x.linea}}</TD><TD>{{#=x.fabricacion}}</TD><TD>{{#=x.marca}}</TD><TD></TD><TD>{{#=x.stock}}</TD>
     <TD><A href="{{=URL(c='bajas', f='borrar_articulo', args=(x.id, ))}}">BORRAR</A>
         <A href="{{=URL(c='modificaciones', f='editar_articulo', args=(x.id, ))}}">EDITAR</A></TD>
         <TD>{{=IMG( _src=URL(f="mostrar",args=[x.id]))}}</TD></TR>

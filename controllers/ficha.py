@@ -17,7 +17,7 @@ def comparacion():
         #para que aparezca un mensaje 
         session.flash="Seleccione el segundo articulo que desea comparar"
         #redireccionamos hacia el catalogo
-        redirect(URL(c="catalogo", f="index"))
+        redirect(URL(c="default", f="index"))
     else:
         #seleccionamos el segundo articulo
         session.id_articulo2=request.args[0]
@@ -31,4 +31,4 @@ def volver():
     #borramos los articulos seleccionados, para realizar una nueva comparacion
     del session.id_articulo1
     del session.id_articulo2
-    redirect(URL(c="catalogo", f="index"))
+    redirect(URL(c="default", f="index"))

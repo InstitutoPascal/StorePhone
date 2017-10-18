@@ -20,7 +20,7 @@
              {{for x in da: }}
             <div class="col-md-3 col-sm-6 hero-feature">
                 <div class="thumbnail">
-                    <a class="noeffect" href="{{=URL(c="catalogo",f="index")}}" class="btn btn-primary">
+                    <a class="noeffect" href="{{=URL(c="ficha",f="index", args=[x.id])}} "class="btn btn-primary">
                         <!-- Ingresa la imagen -->
                         {{=IMG( _src=URL(c="consultas", f="mostrar",args=[x.id]))}}
                     </a>
