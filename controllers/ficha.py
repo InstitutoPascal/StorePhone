@@ -8,7 +8,8 @@ def index():
 
 def caracteristicas():
     "pagina caracteristicas de celulares"
-    return dict(message="funcion  caracteristicas")
+    datos_articulos=db(db.articulo.id==request.args[0]).select(db.articulo.ALL)
+    return dict(da = datos_articulos)
 
 def comparacion():
     if not session.id_articulo1:

@@ -1,0 +1,49 @@
+{{extend 'layout.html'}}
+<div class="table-responsive"> 
+    <table class="table table-bordered table-striped">
+         {{for x in da:}}
+         <h2>
+         {{=x.nombre}}   
+         </h2>
+         <thead> 
+         </thead> 
+         <tbody> 
+         <tr> <th>Procesador</th> 
+         <td>{{=x.procesador}}</td>
+         </tr>
+         <tr> <th>Display</th> 
+         <td>{{=x.pantalla}}</td>
+         </tr>
+         <tr> <th>Memoria Ram</th> 
+         <td>{{=x.memoria_ram}}</td>
+                                 </tr>
+                                 <tr> <th>Camara Principal</th> 
+                                    <td>{{=x.camara_principal}}</td>
+                                 </tr>
+                                 <tr> <th>Camara Secundaria</th> 
+                                     <td>{{=x.camara_secundaria}}</td>
+                                 </tr>
+                                 <tr> <th>Sistema Operativo</th> 
+                                     <td>{{=x.sistema_operativo}}</td>
+                                 </tr>
+                                 <tr> <th>Tipos de Red</th> 
+                                     <td>{{=x.red}}</td>
+                                 </tr>
+                                  <tr> <th>Memoria Interna</th> 
+                                     <td>{{=x.memoria_interna}}</td>
+                                 </tr>
+                                 <tr> <th>Memoria Externa</th> 
+                                     <td>{{=x.memoria_externa}}</td>
+                                 </tr>
+                                 <tr> <th>Bluetooth</th> 
+                                     <td>{{=x.bluetooth}}</td>
+                                 </tr>
+                                  <tr> <th>Marcacion Por Voz</th> 
+                                     <td>{{=x.linea}}</td>
+                                 </tr>
+                              </tbody> 
+                        </table> 
+                        </div>
+                   </div>
+                </div>
+                 {{pass}}
