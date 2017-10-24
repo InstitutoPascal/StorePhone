@@ -16,6 +16,7 @@ def index():
         reg = db(db.articulo.id==id_articulo).select().first()
         datos_articulo.append(reg)
     return dict (da=datos_articulo)
+
 @auth.requires_login()
 def eliminar():
     if request.args:
@@ -27,6 +28,19 @@ def eliminar():
 def detalle():
     "detalle de la compra"
     result = mail.send(to=['storephone@gmail.com'],subject='Compra en StorePhone',reply_to='nogueralucasezequiel@gmail.com',message='Muchas Gracias por realizar tu compra en Store Phone, al correr de los dias se les detallara el estado de su compra')
+
+    if session["carrito"]:
+        # crear un registro para el pedido (completar datos generales: fecha, n fact, etc.)
+        id_venta = db.ventas.insert(detalle="nuevo pedido!")
+        # busco todos los articulos cuyo id esté en la sesion (carrito)
+        datos_articulo=[]
+        for id_articulo in session ["carrito"]:
+            reg = db(db.articulo.id==id_articulo).select().first()
+            datos_articulo.append(reg)
+            db.ventas_por_articulo.insert(venta=id_venta, articulo=id_articulo)
+        return dict (da=datos_articulo)
+
+    
     return dict(result=result)
 
 
