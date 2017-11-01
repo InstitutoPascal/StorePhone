@@ -105,7 +105,7 @@ db.define_table('clientes',
 
 db.clientes.password.requires=IS_ALPHANUMERIC()
 db.clientes.sexo.requires=IS_IN_SET(['Masculino','Femenino'])
-db.clientes.cuil.requires=IS_ALPHANUMERIC()
+#db.clientes.cuil.requires=IS_ALPHANUMERIC()
 
 db.define_table('proveedor',
 	db.Field('nombre','string'),
@@ -169,7 +169,7 @@ db.define_table('ventas',
     db.Field('detalle','string'),
     db.Field('total','integer'))
 
-db.ventas.cliente.requires=IS_IN_DB(db,db.clientes.id,'%(usuario)s')
+db.ventas.cliente.requires=IS_IN_DB(db,db.clientes.id,'%(nombre)s')
 
 db.define_table('ventas_por_articulo',
     db.Field('venta',db.ventas),

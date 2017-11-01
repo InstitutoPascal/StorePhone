@@ -5,4 +5,5 @@ def listado_ventas():
 def reporte():
     "pagina de inicio del catalogo"
     estados_de_ventas=db().select(db.estados_de_ventas.ALL)
-    return dict (ev=estados_de_ventas)
+    ventas=db().select(db.ventas.ALL)
+    return dict (ev=estados_de_ventas, v=ventas)

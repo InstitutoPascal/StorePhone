@@ -22,11 +22,12 @@ def comparacion():
     else:
         #seleccionamos el segundo articulo
         session.id_articulo2=request.args[0]
+        #Comparamos el id de ssesion con el de la base de datos y lo GUARDAMOS EN q
     q = db.articulo.id==session.id_articulo1    
     datos_articulo1 = db(q).select().first()
     q = db.articulo.id==session.id_articulo2
     datos_articulo2 = db(q).select().first()
-    return dict(d1=datos_articulo1, d2=datos_articulo2)
+    return dict(d1=datos_articulo1, d2=datos_articulo2,)
 
 def volver():
     #borramos los articulos seleccionados, para realizar una nueva comparacion

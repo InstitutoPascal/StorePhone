@@ -12,15 +12,15 @@
         </thead>
         <tbody>
             {{for x in ev: }}
-                <tr class="clickable warning dropdown-deliverable" data-for="#details_1">
-                    <td>Carlos Villalva</td>
+                <tr class="clickable warning dropdown-deliverable" data-for="#details_{{=x.id}}">
+                    <td>Carlos Villalva{{=x.estado}}</td>
                     <td>Samsung galaxy A5</td>
                     <td>23, Abril, 2017</td>
                     <td><span class="label label-{{=x.color}}">{{=x.estado}}</span></td>
                     <td>
                         <div class="progress">
                             <div class="progress-bar progress-bar-{{=x.color}}" style="width: {{=x.progreso}}%;">
-                                {{=x.progreso}}
+                                {{=x.progreso}}%
                             </div>
                         </div>
                     </td>
@@ -28,8 +28,8 @@
                 <tr style="padding:0">
                     <td style="padding:0"></td>
                     <td colspan=2 style="padding:0px;">
-                        <div class="deliverable-infos" id="details_1">
-                            <table class="table table-condensed table-user-content" id="hidden_table_1">
+                        <div class="deliverable-infos" id="details_{{=x.id}}">
+                            <table class="table table-condensed table-user-content" id="hidden_table_{{=x.id}}">
                                 <tbody>
                                     <tr>
                                         <td>Fecha de compra :</td>
