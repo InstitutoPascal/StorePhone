@@ -11,16 +11,15 @@
             </tr>
         </thead>
         <tbody>
-            {{for x in ev: }}
-                <tr class="clickable warning dropdown-deliverable" data-for="#details_{{=x.id}}">
-                    <td>Carlos Villalva{{=x.estado}}</td>
+            {{for x in v: }}
+                <tr class="clickable warning dropdown-deliverable" data-for="#details_1">
+                    <td></td>
                     <td>Samsung galaxy A5</td>
                     <td>23, Abril, 2017</td>
-                    <td><span class="label label-{{=x.color}}">{{=x.estado}}</span></td>
+                    <td><span class="label label-danger}"></span></td>
                     <td>
                         <div class="progress">
-                            <div class="progress-bar progress-bar-{{=x.color}}" style="width: {{=x.progreso}}%;">
-                                {{=x.progreso}}%
+                            <div class="progress-bar progress-bar-danger" style="width: 70;">
                             </div>
                         </div>
                     </td>
@@ -28,8 +27,8 @@
                 <tr style="padding:0">
                     <td style="padding:0"></td>
                     <td colspan=2 style="padding:0px;">
-                        <div class="deliverable-infos" id="details_{{=x.id}}">
-                            <table class="table table-condensed table-user-content" id="hidden_table_{{=x.id}}">
+                        <div class="deliverable-infos" id="details_1">
+                            <table class="table table-condensed table-user-content" id="hidden_table_1">
                                 <tbody>
                                     <tr>
                                         <td>Fecha de compra :</td>
@@ -48,134 +47,3 @@
                         </div>
                     </td>
                     {{pass}}
-                    <!--
-                    <td style="padding:0"></td>
-                    <td style="padding:0"></td>
-                </tr>
-                </tr>
-        </thead>
-        <tbody>
-                <tr class="clickable warning dropdown-deliverable" data-for="#details_2">
-                    <td>Guerrero Viviana</td>
-                    <td>Samsung galaxy A5</td>
-                    <td>23, Abril, 2017</td>
-                    <td><span class="label label-info">Despachado</span></td>
-                    <td>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-info" style="width: 75%;">
-                                75%
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr style="padding:0">
-                    <td style="padding:0"></td>
-                    <td colspan=2 style="padding:0px;">
-                        <div class="deliverable-infos" id="details_2">
-                            <table class="table table-condensed table-user-content" id="hidden_table_2">
-                                <tbody>
-                                    <tr>
-                                        <td>Fecha de compra :</td>
-                                        <td class="right-col">3 de junio, 2017</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tipo de Pago :</td>
-                                        <td class="right-col">Debito</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Importe :</td>
-                                        <td class="right-col">$ 3000 </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </td>
-                    <td style="padding:0"></td>
-                    <td style="padding:0"></td>
-                </tr>
-                </tr>
-            </thead>
-        <tbody>
-                <tr class="clickable warning dropdown-deliverable" data-for="#details_3">
-                    <td>Tousedo Ruben</td>
-                    <td>Motorola Moto G3</td>
-                    <td>23, Abril 2017</td>
-                    <td><span class="label label-success">Entregado</span></td>
-                    <td>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-success" style="width: 100%;">
-                                100%
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr style="padding:0">
-                    <td style="padding:0"></td>
-                    <td colspan=2 style="padding:0">
-                        <div class="deliverable-infos" id="details_3">
-                            <table class="table table-condensed table-user-content" id="hidden_table_3">
-                                <tbody>
-                                    <tr>
-                                        <td>Fecha de Compra:</td>
-                                        <td class="right-col">22, Abril 2017</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tipo de Pago:</td>
-                                        <td class="right-col">Visa Credito</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Importe:</td>
-                                        <td class="right-col">$ 5000 </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </td>
-                    <td style="padding:0"></td>
-                    <td style="padding:0"></td>
-                </tr>
-                </tr>
-        </thead>
-        <tbody>
-                <tr class="clickable warning dropdown-deliverable" data-for="#details_4">
-                    <td>Paz Juan</td>
-                    <td>Samsung galaxy A5</td>
-                    <td>23, Abril, 2017</td>
-                    <td><span class="label label-warning">Confirmado</span></td>
-                    <td>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-warning" style="width: 50%;">
-                                50%
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr style="padding:0">
-                    <td style="padding:0"></td>
-                    <td colspan=2 style="padding:0px;">
-                        <div class="deliverable-infos" id="details_4">
-                            <table class="table table-condensed table-user-content" id="hidden_table_4">
-                                <tbody>
-                                    <tr>
-                                        <td>Fecha de compra :</td>
-                                        <td class="right-col">23 de Abril, 2017</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tipo de Pago :</td>
-                                        <td class="right-col">Debito</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Importe :</td>
-                                        <td class="right-col">$ 3000 </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </td>
-                    <td style="padding:0"></td>
-                    <td style="padding:0"></td>
-                </tr>
-        </tbody>
-    </table>
-</div>
--->

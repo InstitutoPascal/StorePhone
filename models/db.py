@@ -167,9 +167,11 @@ db.define_table('ventas',
     db.Field('cliente',db.clientes),
     db.Field('p_unitario','integer'),
     db.Field('detalle','string'),
-    db.Field('total','integer'))
+    db.Field('total','integer'),
+    db.Field('articulo',db.articulo))
 
 db.ventas.cliente.requires=IS_IN_DB(db,db.clientes.id,'%(nombre)s')
+db.ventas.articulo.requires=IS_IN_DB(db,db.articulo.id,'%(nombre)s')
 
 db.define_table('ventas_por_articulo',
     db.Field('venta',db.ventas),
