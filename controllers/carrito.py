@@ -27,7 +27,7 @@ def eliminar():
 @auth.requires_login()
 def detalle():
     "detalle de la compra"
-    result = mail.send(to=['storephone@gmail.com'],subject='Compra en StorePhone',reply_to='nogueralucasezequiel@gmail.com',message='Muchas Gracias por realizar tu compra en Store Phone, al correr de los dias se les detallara el estado de su compra')
+    result = mail.send(to=['storephone@gmail.com'],subject='Compra en StorePhone',reply_to='nogueralucasezequiel@gmail.com',message='Hola soy macri')
 
     if session["carrito"]:
         # crear un registro para el pedido (completar datos generales: fecha, n fact, etc.)
@@ -39,11 +39,7 @@ def detalle():
             datos_articulo.append(reg)
             db.ventas_por_articulo.insert(venta=id_venta, articulo=id_articulo)
         return dict (da=datos_articulo)
-
     
-    return dict(result=result)
-
-
 @auth.requires_login()
 def confirmacion():
     "confirmacion de compra"

@@ -12,9 +12,10 @@
              <h2>PRODUCTOS</h2>
         <hr>  
         <div class="col-md-7 col-sm-7 col-xs-12">
+            {{for x in da:}}
               <table class="table table-hover">
                             <tr class="info">
-                                <th>SAMSUNG J7 </th>
+                                <th>{{=x.nombre}} </th>
                                     <td> </td>
                             </tr>
                             </tr>
@@ -24,7 +25,7 @@
                             </tr>
                           <tr class="info">
                                 <th>SUBTOTAL </th>
-                              <td>$6500 </td>
+                              <td>{{=x.nombre}} </td>
                             </tr>
                           <tr class="info">
                                 <th>TOTAL </th>
@@ -33,7 +34,7 @@
                        </table>
                      </div>
                     </div>
-              
+              {{pass}}
                   </div>
                 </div>
               </div> 
@@ -71,11 +72,12 @@
                   </p>
                   </div>
                 </div>
+                <a mp-mode="dftl" href="https://www.mercadopago.com/mla/checkout/start?pref_id=243812046-7c934f29-83d7-4f73-996f-a3680bf491f5" name="MP-payButton" class='blue-ar-l-rn-none'>Pagar</a>
             <div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                   <div class="input-group">
                     <span class="input-group-btn">
-                        <a mp-mode="dftl" href="https://www.mercadopago.com/mla/checkout/start?pref_id=243812046-7c934f29-83d7-4f73-996f-a3680bf491f5" name="MP-payButton" class='blue-ar-l-rn-none'>Pagar</a>
+                        
 <script type="text/javascript">
 (function(){function $MPC_load(){window.$MPC_loaded !== true && (function(){var s = document.createElement("script");s.type = "text/javascript";s.async = true;s.src = document.location.protocol+"//secure.mlstatic.com/mptools/render.js";var x = document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s, x);window.$MPC_loaded = true;})();}window.$MPC_loaded !== true ? (window.attachEvent ?window.attachEvent('onload', $MPC_load) : window.addEventListener('load', $MPC_load, false)) : null;})();
 </script>
@@ -89,3 +91,5 @@
     </div>
     </div>
 </div>
+<center>
+<br /><br /><br />

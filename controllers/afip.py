@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import datetime
 from ConfigParser import SafeConfigParser
 
@@ -12,37 +11,43 @@ def obtener_cae():
     wsfev1.LanzarExcepciones = True
 
     # obteniendo el TA para pruebas
-    ta = WSAA().Autenticar("wsfe", "/home/leo/pyafipws/reingart.crt",
-                                   "/home/leo/pyafipws/reingart.key", debug=True)
+    ta = WSAA().Autenticar("wsfe", "/home/sysadmin/web2py/cert/empresa.crt",
+                                   "/home/sysadmin/web2py/cert/empresa.key", debug=True)
     wsfev1.SetTicketAcceso(ta)
-    wsfev1.Cuit = "20267565393"
+    wsfev1.Cuit = "20261463041"
 
     ok = wsfev1.Conectar()
 
-    tipo_cbte = 6
-    punto_vta = 4001
-    cbte_nro = long(wsfev1.CompUltimoAutorizado(tipo_cbte, punto_vta) or 0)
+    # obtengo el id de comprobante pasado por la URL desde la funcion facturar
+    factura_id = int(request.args[0])
+    # obtengo el registro general del comprobante (encabezado y totales)
+    reg = db(db.comprobante_afip.id==factura_id).select().first()
+
+    tipo_cbte = reg.tipo_cbte
+    punto_vta = reg.punto_vta
+    cbte_nro = long(wsfev1.CompUltimoAutorizado(tipo_cbte, punto_vta) or 0) + 1
+    #fecha = reg.fecha_cbte.strftime("%Y%m%d")  # formato AAAAMMDD
     fecha = datetime.datetime.now().strftime("%Y%m%d")
-    concepto = 1
-    tipo_doc = 80 # 80: CUIT, 96: DNI
-    nro_doc = "30500010912" # del cliente
-    cbt_desde = cbte_nro + 1; cbt_hasta = cbte_nro + 1
-    imp_total = "222.00"
-    imp_tot_conc = "0.00"
-    imp_neto = "200.00"
-    imp_iva = "21.00"
-    imp_trib = "1.00"
-    imp_op_ex = "0.00"
+    concepto = reg.concepto
+    tipo_doc = reg.tipo_doc # 80: CUIT, 96: DNI
+    nro_doc = reg.nro_doc.replace("-", "") # del cliente, sin rayita
+    cbt_desde = cbte_nro; cbt_hasta = cbte_nro
+    imp_total = reg.imp_total
+    imp_tot_conc = reg.imp_tot_conc
+    imp_neto = reg.imp_neto
+    imp_iva = reg.impto_liq
+    imp_trib = "0.00"
+    imp_op_ex = reg.imp_op_ex
     fecha_cbte = fecha
     # Fechas del per�odo del servicio facturado y vencimiento de pago:
     if concepto > 1:
-        fecha_venc_pago = fecha
-        fecha_serv_desde = fecha
-        fecha_serv_hasta = fecha
+        fecha_venc_pago = reg.fecha_venc_pago
+        fecha_serv_desde = reg.fecha_serv_desde
+        fecha_serv_hasta = reg.fecha_serv_desde
     else:
         fecha_venc_pago = fecha_serv_desde = fecha_serv_hasta = None
-    moneda_id = 'PES'
-    moneda_ctz = '1.000'
+    moneda_id = "PES"
+    moneda_ctz = "1.000"
 
     wsfev1.CrearFactura(concepto, tipo_doc, nro_doc, 
                 tipo_cbte, punto_vta, cbt_desde, cbt_hasta , 
@@ -51,36 +56,34 @@ def obtener_cae():
                 fecha_serv_desde, fecha_serv_hasta, #--
                 moneda_id, moneda_ctz)
 
-    # otros tributos:
-    tributo_id = 99
-    desc = 'Impuesto Municipal Matanza'
-    base_imp = None
-    alic = None
-    importe = 1
-    wsfev1.AgregarTributo(tributo_id, desc, base_imp, alic, importe)
-
-    # subtotales por alicuota de IVA:
-    iva_id = 3 # 0%
-    base_imp = 100    # neto al 0%
-    importe = 0
-    wsfev1.AgregarIva(iva_id, base_imp, importe)
-
     # subtotales por alicuota de IVA:
     iva_id = 5 # 21%
-    base_imp = 100   # neto al 21%
-    importe = 21     # iva liquidado al 21%
+    base_imp = reg.imp_neto   # neto al 21%
+    importe = reg.impto_liq     # iva liquidado al 21%
     wsfev1.AgregarIva(iva_id, base_imp, importe)
 
-    wsfev1.CAESolicitar()
+    try:
+        wsfev1.CAESolicitar()
+    except:
+        print "uy le mandamos fruta!"
 
-    print "Nro. Cbte. desde-hasta", wsfev1.CbtDesde, wsfev1.CbtHasta
-    print "Resultado", wsfev1.Resultado
-    print "Reproceso", wsfev1.Reproceso
-    print "CAE", wsfev1.CAE
-    print "Vencimiento", wsfev1.Vencimiento
-    print "Observaciones", wsfev1.Obs
+    #print "Nro. Cbte. desde-hasta", wsfev1.CbtDesde, wsfev1.CbtHasta
+    #print "Resultado", wsfev1.Resultado
+    #print "Reproceso", wsfev1.Reproceso
+    #print "CAE", wsfev1.CAE
+    #print "Vencimiento", wsfev1.Vencimiento
+    #print "Observaciones", wsfev1.Obs
 
-    session.cae = wsfev1.CAE
+    # actualizamos la factura con la respuesta de AFIP
+    db(db.comprobante_afip.id == factura_id).update(
+        cae=wsfev1.CAE,
+        fecha_cbte=fecha,
+        cbte_nro=cbte_nro,
+        fecha_vto=wsfev1.Vencimiento,
+        )
+
+    if wsfev1.CAE:
+        redirect(URL(f="generar_pdf", args=[factura_id]))
     response.view = "generic.html"
     return {"Nro. Cbte. desde-hasta": wsfev1.CbtDesde,
             "Resultado": wsfev1.Resultado,
@@ -88,8 +91,10 @@ def obtener_cae():
             "CAE": wsfev1.CAE,
             "Vencimiento": wsfev1.Vencimiento,
             "Observaciones": wsfev1.Obs,
+            "XmlRequest": wsfev1.XmlRequest,
+            "XmlResponse": wsfev1.XmlResponse,
+            "ErrMsg": wsfev1.ErrMsg,
           }
-    
 
 def generar_pdf(): 
     CONFIG_FILE = "/home/leo/pyafipws/rece.ini"
@@ -113,45 +118,54 @@ def generar_pdf():
     # creo una factura de ejemplo
     HOMO = True
 
-    # datos generales del encabezado:
-    tipo_cbte = 1
-    punto_vta = 4000
-    fecha = datetime.datetime.now().strftime("%Y%m%d")
-    concepto = 3
-    tipo_doc = 80; nro_doc = "30000000007"
-    cbte_nro = 12345678
-    imp_total = "127.00"
-    imp_tot_conc = "3.00"
-    imp_neto = "100.00"
-    imp_iva = "21.00"
-    imp_trib = "1.00"
-    imp_op_ex = "2.00"
-    imp_subtotal = "105.00"
+
+    # obtengo el registro general del comprobante (encabezado y totales)
+    id_comprobante = int(request.args[0])
+    reg = db(db.comprobante_afip.id==id_comprobante).select().first()
+
+    tipo_cbte = reg.tipo_cbte
+    punto_vta = reg.punto_vta
+    cbte_nro = reg.cbte_nro
+    fecha = reg.fecha_cbte #.strftime("%Y%m%d")  # formato AAAAMMDD
+    concepto = reg.concepto
+    tipo_doc = reg.tipo_doc # 80: CUIT, 96: DNI
+    nro_doc = reg.nro_doc.replace("-", "") # del cliente, sin rayita
+    cbt_desde = cbte_nro; cbt_hasta = cbte_nro
+    imp_total = reg.imp_total
+    imp_tot_conc = reg.imp_tot_conc
+    imp_neto = reg.imp_neto
+    imp_iva = reg.impto_liq
+    imp_trib = "0.00"
+    imp_op_ex = reg.imp_op_ex
     fecha_cbte = fecha
-    fecha_venc_pago = fecha
-    # Fechas del período del servicio facturado (solo si concepto> 1)
-    fecha_serv_desde = fecha
-    fecha_serv_hasta = fecha
-    # campos p/exportación (ej): DOL para USD, indicando cotización:
-    moneda_id = 'PES'
-    moneda_ctz = 1
+    # Fechas del per�odo del servicio facturado y vencimiento de pago:
+    if concepto > 1:
+        fecha_venc_pago = reg.fecha_venc_pago
+        fecha_serv_desde = reg.fecha_serv_desde
+        fecha_serv_hasta = reg.fecha_serv_desde
+    else:
+        fecha_venc_pago = fecha_serv_desde = fecha_serv_hasta = None
+    moneda_id = reg.moneda_id
+    moneda_ctz = reg.moneda_ctz
+
+    # datos generales del encabezado:
     incoterms = 'FOB'                   # solo exportación
     idioma_cbte = 1                     # 1: es, 2: en, 3: pt
 
     # datos adicionales del encabezado:
-    nombre_cliente = 'Juan Perez'
-    domicilio_cliente = 'Rua 76 km 34.5 Alagoas'
+    nombre_cliente = reg.nombre_cliente
+    domicilio_cliente = reg.domicilio_cliente
     pais_dst_cmp = 212                  # 200: Argentina, ver tabla
-    id_impositivo = 'PJ54482221-l'      # cat. iva (mercado interno)
-    forma_pago = '30 dias'
+    id_impositivo = reg.id_impositivo      # cat. iva (mercado interno)
+    forma_pago = reg.forma_pago
 
-    obs_generales = "Observaciones Generales<br/>linea2<br/>linea3"
-    obs_comerciales = "Observaciones Comerciales<br/>texto libre"
+    obs_generales = reg.obs
+    obs_comerciales = reg.obs_comerciales
 
     # datos devueltos por el webservice (WSFEv1, WSMTXCA, etc.):
     motivo_obs = "Factura individual, DocTipo: 80, DocNro 30000000007 no se encuentra registrado en los padrones de AFIP."
-    cae = session.cae
-    fch_venc_cae = "20110320"
+    cae = reg.cae
+    fch_venc_cae = reg.fecha_vto
 
     fepdf.CrearFactura(concepto, tipo_doc, nro_doc, tipo_cbte, punto_vta,
         cbte_nro, imp_total, imp_tot_conc, imp_neto,
@@ -191,27 +205,23 @@ def generar_pdf():
     fepdf.AgregarIva(iva_id, base_imp, importe)
 
     # detalle de artículos:
-    u_mtx = 123456
-    cod_mtx = 1234567890123
-    codigo = "P0001"
-    ds = "Descripcion del producto P0001\n"
-    qty = 1.00
-    umed = 7
-    if tipo_cbte in (1, 2, 3, 4, 5, 34, 39, 51, 52, 53, 54, 60, 64):
-        # discriminar IVA si es clase A / M
-        precio = 110.00
-        imp_iva = 23.10
-    else:
-        # no discriminar IVA si es clase B (importe final iva incluido)
-        precio = 133.10
-        imp_iva = None
-    bonif = 0.00
-    iva_id = 5
-    importe = 133.10
-    despacho = u'Nº 123456'
-    dato_a = "Dato A"
-    fepdf.AgregarDetalleItem(u_mtx, cod_mtx, codigo, ds, qty, umed, 
-            precio, bonif, iva_id, imp_iva, importe, despacho, dato_a)
+    registros = db(db.detalle_afip.comprobante_id==id_comprobante).select()
+    for registro in registros:
+        u_mtx = 123456
+        cod_mtx = 1234567890123
+        codigo = registro.codigo
+        ds = registro.ds
+        qty = registro.qty
+        umed = 7
+        precio = registro.precio
+        imp_iva = registro.imp_iva
+        bonif = 0.00
+        iva_id = registro.iva_id
+        importe = registro.imp_total
+        despacho = u''
+        dato_a = ""
+        fepdf.AgregarDetalleItem(u_mtx, cod_mtx, codigo, ds, qty, umed, 
+                precio, bonif, iva_id, imp_iva, importe, despacho, dato_a)
 
     # descuento general (a tasa 21%):
     u_mtx = cod_mtx = codigo = None
@@ -241,8 +251,7 @@ def generar_pdf():
     fepdf.AgregarDato("custom-pedido", "1234")
     fepdf.AgregarDato("custom-remito", "12345")
     fepdf.AgregarDato("custom-transporte", "Camiones Ej.")
-    print "Prueba!"
-    
+
     # datos fijos:
     for k, v in conf_pdf.items():
         fepdf.AgregarDato(k, v)
@@ -258,6 +267,6 @@ def generar_pdf():
     salida = "/tmp/factura.pdf"
     fepdf.GenerarPDF(archivo=salida)
     ##fepdf.MostrarPDF(archivo=salida,imprimir=False)
-    
+
     response.headers['Content-Type'] = "application/pdf"
     return open(salida, "rb")
