@@ -2,7 +2,10 @@
 import time
 import datetime
 from ConfigParser import SafeConfigParser
+#response.view = "generic.html"
 
+#forzamos que el usuario se loguee en el sistema
+@auth.requires_login()
 def VentasLocal():
     #importamos la fecha del sistema
     import time
@@ -16,7 +19,7 @@ def VentasLocal():
     vendedor_log = usuario_log.nombre
     #agrego el usuario logueado en la sesion
     session["vendedor_log"] = vendedor_log
-    #obtenemos de la tabla clientes los siguientes campos, el id, el nombre y el codigo del cliente
+    #obtenemos de la tabla clientes los siguientes campos, el id, el nombre
     campos = db.clientes.id, db.clientes.nombre
     #defino la condición que deben cumplir los datos que se obtendran de la base de datos
     criterio = db.clientes.id>0
@@ -52,7 +55,6 @@ def VentasLocalCarga():
     if request.vars["boton_enviar"]:
         #obtengo el id del cliente del formulario web en la vista VentasLocal
         id_cliente = request.vars["id_cliente"]
-        usuario_actual  = request.vars.userlog
         #guardo el id de cliente en la sesión
         session["id_cliente"] = id_cliente
         #Defino en la sesion que inicie una lista (diccionario) en blanco
@@ -60,11 +62,12 @@ def VentasLocalCarga():
     #verifico si presionaron el boton =agregar_item en el formulario web, continuo.
     if request.vars["agregar_item"]:
         # obtengo los valores del formulario
-        codigo_barras = request.vars["id_producto"]
+        cod = request.vars["id_producto"]
         # busco en la base de datos el codigo de barras ingresado, lo comparo y obtengo los campos de la tabla productos
-        reg_producto = db(db.productos.codigo_barras==codigo_barras).select().first()
-        # obtengo el id de la consulta anterior
-        id_producto = reg_producto.id_producto
+        reg_producto = db(db.articulo.id==cod).select().first()
+        for x in reg_producto:
+            # obtengo el id de la consulta anterior
+            id_producto =1
         # obtengo la candidad de productos ingresado en el formulario
         cantidad = request.vars["cantidad"]
         # creo un diccionario y lo inicializo con el id y la cantidad de producto
@@ -72,12 +75,12 @@ def VentasLocalCarga():
         # agrego nuevos registros en el diccionario (item["nombredelaclave"] = variablequetraelaconsulta.campodelatablaconsultada)
         item["nombre"] = reg_producto.nombre
         item["marca"] = reg_producto.marca
-        item["descripcion"] = reg_producto.descripcion
+        item["descripcion"] = reg_producto.fabricacion
         item["precio"] = reg_producto.precio
-        item["alicuota_iva"] = reg_producto.alicuota_iva
+        item["alicuota_iva"] = 0
         #guardo el item en la sesión
         session["items_venta"].append(item)
-    return dict( fecha_dia=session["fecha_actual"], items_venta=session["items_venta"], cliente_venta=cliente_venta, vend=session["vendedor_log"],)
+    return dict( fecha_dia=session["fecha_actual"], items_venta=session["items_venta"], cliente_venta=cliente_venta, )
 
 def confirmar():
     total = 0
@@ -87,7 +90,7 @@ def confirmar():
     #Recorro lo almacenado en items_venta en la session y hago los calculos de los impuesto para enviarlos a la vista de confirmacion de la venta
     for item in session["items_venta"]:
         total += (item["precio"] * item["cantidad"] + item["precio"] * item["cantidad"] *item["alicuota_iva"]/100.00)
-    return dict (cliente_venta=cliente_venta, fecha_dia=session["fecha_actual"], total=total, vend=session["vendedor_log"])
+    return dict (cliente_venta=cliente_venta, fecha_dia=session["fecha_actual"], total=total, vend="caros" )
 
 #Reporte temporal para uso en el desarrollo del sistema
 def VentaLocalReporte():
@@ -112,13 +115,13 @@ def GenerarFactura():
             # Datos del cliente se obtienen de la tabla cliente
             nombre_cliente=reg_cliente.nombre + " " + reg_cliente.apellido,
             tipo_doc=80,#96 dni # 80 cuit
-            nro_doc=reg_cliente.dni,
+            nro_doc=reg_cliente.cuil,
             domicilio_cliente=reg_cliente.direccion,
-            telefono_cliente=reg_cliente.telefono,
-            #localidad_cliente=reg_cliente.localidad_cliente,
-            #provincia_cliente=reg_cliente.provincia,
-            #email=reg_cliente.email,
-            #id_impositivo=reg_cliente.tipo_categoria,
+            telefono_cliente=reg_cliente.dni,
+            localidad_cliente="Matanza",
+            provincia_cliente="Buenos Aires",
+            email="chuchilandia",
+            id_impositivo="2",
             moneda_id=moneda.id,
             )
 
@@ -160,8 +163,6 @@ def GenerarFactura():
     #llamamos a la funcion obtener cae en el controlado facturacion donde enviamos los datos al afip y luego generamos la factura
     redirect(URL(c="afip", f="obtener_cae", args=[factura_id]))
     return dict(message="se creo la factura %s" % factura_id)
-
-
 #########################################
 @auth.requires_membership(role='Supervisor')
 def listado_ventas():

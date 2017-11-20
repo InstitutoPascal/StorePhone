@@ -11,8 +11,8 @@ def obtener_cae():
     wsfev1.LanzarExcepciones = True
 
     # obteniendo el TA para pruebas
-    ta = WSAA().Autenticar("wsfe", "/home/sysadmin/web2py/cert/empresa.crt",
-                                   "/home/sysadmin/web2py/cert/empresa.key", debug=True)
+    ta = WSAA().Autenticar("wsfe", "/home/leo/pyafipws/reingart.crt",
+                                   "/home/leo/pyafipws/reingart.key", debug=True)
     wsfev1.SetTicketAcceso(ta)
     wsfev1.Cuit = "20261463041"
 

@@ -1,0 +1,20 @@
+{{extend 'layout.html'}}
+
+
+<center>
+<br /><br /><br />
+<h2 align="center"> <b>¿Desea confirmar la siguiente venta?</b></h2>
+<h2 align="center"> Cliente: <b>"{{=cliente_venta}}"</b>, Importe total: <b> "${{=total}}"</b>, Con fecha: <b>"{{=fecha_dia}}"</b>, Vendedor: <b>"{{=vend}}"</b></h2>
+<h1> <p class="text-center visible-lg bg-success">Confirmar compra y generar factura ?</p></h1>
+<br />
+<input height=100 TYPE="button" VALUE="Generar Factura" class="btn btn-success"
+onclick="window.open('{{=URL(c='ventas',f='GenerarFactura')}}','width=700','height=600');void 0">
+    <a type="cargar" class="btn btn-warning"  href="{{=URL(c="ventas",f="VentasLocalCarga")}}" > Volver al listado <i class="glyphicon glyphicon-remove" ></i> </a>
+    <a type="cargar" class="btn btn-danger" href="{{=URL(c="ventas",f="CancelarVenta")}}">  Cancelar Venta <i class="glyphicon glyphicon-remove" ></i></a>
+
+
+</center>
+
+
+
+</div>
