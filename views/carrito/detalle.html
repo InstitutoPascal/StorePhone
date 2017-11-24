@@ -4,32 +4,40 @@
         <div class="title_left">
             <h2><center>DETALLE DE VENTAS</center></h2>
         </div>
-    <div class="form-group">
-        <div class="col-md-10">
-          <table class="table table-hover">
-          <caption>Items de Venta</caption>
-          <thead>
-            <tr>
-                <th>#</th>
-                <th class="">Nombre</th>
-                <th>Cantidad</th>
-                <th>Subtotal</th>
-                <th>Total</th>
-            </tr>
-          </thead>
-        <tbody>
-            {{for x in da:}}
-            <tr>
-                <td ></td>
-                <td align="center">{{=x.nombre}}</td>
-                <td align="center"></td>
-                <td align="center"></td>
-            </tr>
-            {{pass}}
-        </tbody>
-        </table>
-        </div>
-        </div>
+          <div class="clearfix"></div>
+        <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+        <div class="x_title">
+             <h2>PRODUCTOS</h2>
+        <hr>  
+       <div class="col-md-7 col-sm-7 col-xs-12">
+    <table class="table table-hover">
+                            <tr class="info">
+                                <th>Samsung Galaxy J7 </th>
+                                    <td> </td>
+                            </tr>
+                            </tr>
+                          <tr class="info">
+                                <th> </th>
+                                    <td> </td>
+                            </tr>
+                          <tr class="info">
+                                <th>SUBTOTAL </th>
+                              <td>$9000</td>
+                            </tr>
+                          <tr class="info">
+                                <th>TOTAL </th>
+                                <td>$9000 </td>  
+                            </tr>
+                       </table>
+                     </div>
+                    </div>
+                  </div>
+                </div>
+              </div> 
+
+<a mp-mode="dftl" href="{{=URL(c="mp",f="index")}}" name="MP-payButton" class="btn btn-success" >Pagar con mercado pago<i class="glyphicon glyphicon-send" ></i></a>
               <!--- 
 <div class="title_right">
                 <a mp-mode="dftl" href="https://www.mercadopago.com/mla/checkout/start?pref_id=243812046-7c934f29-83d7-4f73-996f-a3680bf491f5" name="MP-payButton" class='blue-ar-l-rn-none'>Pagar</a>
