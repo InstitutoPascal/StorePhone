@@ -26,9 +26,6 @@ def eliminar():
 
 @auth.requires_login()
 def detalle():
-    "detalle de la compra"
-    result = mail.send(to=['storephone@gmail.com'],subject='Compra en StorePhone',reply_to='nogueralucasezequiel@gmail.com',message='Hola soy macri')
-
     if session["carrito"]:
         # crear un registro para el pedido (completar datos generales: fecha, n fact, etc.)
         id_venta = db.ventas.insert(detalle="nuevo pedido!")

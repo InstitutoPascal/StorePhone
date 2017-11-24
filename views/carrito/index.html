@@ -1,65 +1,45 @@
 {{extend 'plantilla.html'}}
-{{=session["carrito"]}}
 <div class="right_col" role="main" style="min-height: 1014px;">
-
-          <div class="">
-            <div class="page-title">
-              <div class="title_left">
-                <h2><center>CARRITO DE COMPRAS</center></h2>
-              </div>
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-left top_search">
-                  <div class="input-group">
-                    <span class="input-group-btn">
-                      <a type="button" class="btn btn-default btn-lg" href="{{=URL(c="default",f="index")}}">SEGUIR COMPRANDO</a>
-                    </span>
-                  </div>
-                </div>
-              </div>  
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
-                    <span class="input-group-btn">
-                    ¿
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-<table class="table table-hover" >
-    {{total = 0}}
-    {{for x in da:}}
-    {{total = total + x.precio}}
-    <TR><TH>Producto</TH>
-        <TH>Precio</TH>
-        <TH>Accion</TH>
-    </TR>
-    <TR><TD>{{=x.nombre}}</TD>
-        <TD>{{=x.precio}}</TD>
-        <TD><a type="button" class="btn btn-default btn-lg" href="{{=URL(c="carrito",f="eliminar", args=[x.id])}}">ELIMINAR</a></TD>
-    </TR>
-    {{pass}}
-</table>
-<br>
-<table class= "table table-hover">
-    <tr class="info"><th></th>
-                     <th></th>
-                     <th></th>
-                     <th> Subtotal : $ 6500 </th>
-                     <th> Total : $ {{=total}} </th>
-</table>
-<div class="input-group">
-                    <input class="form-control" placeholder="Ingrese Aqui su Codigo Postal..." type="text">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">CALCULAR COSTO DE ENVIO</button>
-    </span>
+    <div class="title_left">
+        <h2><center>CARRITO DE COMPRAS</center></h2>
     </div>
-<div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
-                    <span class="input-group-btn">
-                      <a type="button" class="btn btn-default btn-lg" href="{{=URL(c="carrito",f="detalle", args=[x.id])}}">FINALIZAR COMPRA</a>
-                    </span>
-                  </div>
-                </div>
+    <div class="title_right">
+        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-left top_search">
+        <div class="input-group">
+            <span class="input-group-btn">
+                <a type="button" class="btn btn-default btn-lg" href="{{=URL(c="default",f="index")}}">SEGUIR COMPRANDO</a>
+            </span>
+        </div>
+        </div>
+    </div>
+    <table class="table table-hover" >
+        <TR class="success"><TH>Producto</TH>
+            <TH>Precio</TH>
+            <TH>Accion</TH>
+        </TR>
+        {{total = 0}}
+        {{for x in da:}}
+        {{total = total + x.precio}}
+        <TR><TD> {{=x.nombre}}</TD>
+            <TD>$ {{=x.precio}}</TD>
+            <TD><a type="button" class="btn btn-default btn-lg" href="{{=URL(c="carrito",f="eliminar", args=[x.id])}}">ELIMINAR</a></TD>
+        </TR>
+        {{pass}}
+    </table>
+    <br>
+    <table class= "table table-hover">
+        <tr class="info"><th></th>
+                         <th></th>
+                         <th></th>
+                         <th> Total : $ {{=total}} </th>
+    </table>
+    <div class="title_right">
+                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                      <div class="input-group">
+                        <span class="input-group-btn">
+                          <a type="button" class="btn btn-default btn-lg" href="{{=URL(c="carrito",f="detalle", args=[x.id])}}">FINALIZAR COMPRA</a>
+                        </span>
+                      </div>
+                    </div>
+    </div>
+</div>

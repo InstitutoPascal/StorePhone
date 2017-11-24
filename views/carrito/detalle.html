@@ -2,83 +2,41 @@
 <div class="right_col" role="main" style="min-height: 1014px;">
     <div class="page-title">
         <div class="title_left">
-            <h2><center>DETALLE DE COMPRAS</center></h2>
+            <h2><center>DETALLE DE VENTAS</center></h2>
         </div>
-        <div class="clearfix"></div>
-        <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="x_panel">
-        <div class="x_title">
-             <h2>PRODUCTOS</h2>
-        <hr>  
-        <div class="col-md-7 col-sm-7 col-xs-12">
+    <div class="form-group">
+        <div class="col-md-10">
+          <table class="table table-hover">
+          <caption>Items de Venta</caption>
+          <thead>
+            <tr>
+                <th>#</th>
+                <th class="">Nombre</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+                <th>Total</th>
+            </tr>
+          </thead>
+        <tbody>
             {{for x in da:}}
-              <table class="table table-hover">
-                            <tr class="info">
-                                <th>{{=x.nombre}} </th>
-                                    <td> </td>
-                            </tr>
-                            </tr>
-                          <tr class="info">
-                                <th> </th>
-                                    <td> </td>
-                            </tr>
-                          <tr class="info">
-                                <th>SUBTOTAL </th>
-                              <td>{{=x.nombre}} </td>
-                            </tr>
-                          <tr class="info">
-                                <th>TOTAL </th>
-                                <td>$6500 </td>  
-                            </tr>
-                       </table>
-                     </div>
-                    </div>
-              {{pass}}
-                  </div>
-                </div>
-              </div> 
-<div class="">
-
-              </div>
+            <tr>
+                <td ></td>
+                <td align="center">{{=x.nombre}}</td>
+                <td align="center"></td>
+                <td align="center"></td>
+            </tr>
+            {{pass}}
+        </tbody>
+        </table>
+        </div>
+        </div>
               <!--- 
 <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search"> -->
-                  <label for="campo_tipo" class="col-sm-2 control-label">TIPO DE PAGO</label>
-                  </div>
-                <div class="col-sm-2">
-                    <select class="form-control" name="forma_pago" id="campo_tipo">
-                      <option>Debito - 1 Cuota sin Interes</option>
-                      <option>Visa Credito - 6 Cuotas sin interes</option>
-                      <option>Mastercard Credito - 3 Cuotas sin interes</option>
-                    </select>
-                </div>
-            <div class="col-xs-6">
-           <div class="title_right">
-                <div class="col-md-6 col-sm-6 col-xs-6 form-group pull-left top_search">
-                </div>
-                <div class="col-md-6 col-sm-6 col-xs-6 form-group pull-right top_search">     
-                  <p class="lead">Tarjetas Trabajadas:</p>
-                  <div class="product-image">
-                      {{=IMG(_src=URL("static","images/visa.png"), _class="img-rounded")}}
-                      {{=IMG(_src=URL("static","images/mastercard.png"), _class="img-rounded")}}
-                      {{=IMG(_src=URL("static","images/america_express.png"), _class="img-rounded")}}
-                      {{=IMG(_src=URL("static","images/paypal.png"), _class="img-rounded")}}
-                  </div>
-                  <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-                    6 CUOTAS SIN INTERES: Visa <br>
-                    3 CUOTAS SIN INTERES: Mastercard <br>
-                    1 PAGO SIN INTERES: American Express , Paypal <br>
-                  </p>
-                  </div>
-                </div>
                 <a mp-mode="dftl" href="https://www.mercadopago.com/mla/checkout/start?pref_id=243812046-7c934f29-83d7-4f73-996f-a3680bf491f5" name="MP-payButton" class='blue-ar-l-rn-none'>Pagar</a>
             <div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                   <div class="input-group">
-                    <span class="input-group-btn">
-                        
-<script type="text/javascript">
+                    <span class="input-group-btn"><script type="text/javascript">
 (function(){function $MPC_load(){window.$MPC_loaded !== true && (function(){var s = document.createElement("script");s.type = "text/javascript";s.async = true;s.src = document.location.protocol+"//secure.mlstatic.com/mptools/render.js";var x = document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s, x);window.$MPC_loaded = true;})();}window.$MPC_loaded !== true ? (window.attachEvent ?window.attachEvent('onload', $MPC_load) : window.addEventListener('load', $MPC_load, false)) : null;})();
 </script>
                       <!--<a type="button" class="btn btn-default btn-lg" href="{{=URL(c="carrito",f="factura")}}">CONTINUAR</a> -->

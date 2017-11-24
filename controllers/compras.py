@@ -52,17 +52,38 @@ def detalle_compras():
                 items_venta=session["items_venta"])
 
 @auth.requires_membership(role='Administrador')
+def confirmar():
+    reg_proveedor = db(db.proveedor.id==session["id_proveedor"]).select().first()
+    total = 0
+    for item in session["items_venta"]:
+        total += item["precio"] * item["cantidad"]
+    return dict (mensaje= "Finalizar venta", 
+                id_proveedor=session["id_proveedor"], fecha=session["fecha"], 
+                nro_cbte=session["nro_comprobante"], 
+                reg_proveedor=reg_proveedor, total=total)
+
+@auth.requires_membership(role='Administrador')
 def guardado():
     # Agregar los registros a la base de datos:
+    for item in session ["items_venta"]:
+        db.compras.insert(
+            N_Factura=session["nro_comprobante"],
+            fecha=session["fecha"],
+            p_unitario= item["precio"],
+            proveedor= session["id_proveedor"],
+            id_articulo=item["id"],
+            cantidad= item["cantidad"],
+            total= item ["precio"] * item["cantidad"]
+            )
     # encabezado:
-    nuevo_id_venta = db.ventas.insert(
+    nuevo_id_venta = db.compras.insert(
         cliente=session["id_cliente"],
         N_Factura=session["nro_comprobante"],
         fecha=session["fecha"],
         )
     # detalle (productos)
     for item in session["items_venta"]:
-        db.ventas_por_articulo.insert(
+        db.compras_por_articulo.insert(
             venta=nuevo_id_venta,
             articulo=item["id"],
             cantidad=item["cantidad"],
@@ -76,23 +97,7 @@ def guardado():
                  id_venta=nuevo_id_venta)
 
 @auth.requires_membership(role='Administrador')
-def confirmar():
-    reg_proveedor = db(db.proveedor.id==session["id_proveedor"]).select().first()
-    total = 0
-    for item in session["items_venta"]:
-        total += item["precio"] * item["cantidad"]
-    return dict (mensaje= "Finalizar venta", 
-                id_proveedor=session["id_proveedor"], fecha=session["fecha"], 
-                nro_cbte=session["nro_comprobante"], 
-                reg_proveedor=reg_proveedor, total=total)
-
-@auth.requires_membership(role='Administrador')
 def listado():
     "Listado de las compras que se realizo"
     datos_compras=db().select(db.compras.ALL)
     return dict (c=datos_compras)
-
-@auth.requires_membership(role='Administrador')
-def subirComprobante():
-    "Escanear la factura que se realizo la compra"
-    return dict(message="hello from compras.py")
