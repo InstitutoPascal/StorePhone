@@ -5,8 +5,8 @@ from ConfigParser import SafeConfigParser
 #response.view = "generic.html"
 
 #forzamos que el usuario se loguee en el sistema
-@auth.requires_login()
-def VentasLocal():
+#@auth.requires_login()
+def VentasPedidos():
     #importamos la fecha del sistema
     import time
     #obtengo la fecha 
@@ -14,9 +14,11 @@ def VentasLocal():
     #guardo la fecha en la sesion
     session["fecha_actual"]=fecha_dia
     #obtenemos el id del usuario logeado en el sistema y en base a ese obtengo los campos del usuario
-    usuario_log = db(db.clientes.id == auth.user_id ).select().first()
+    #usuario_log = db(db.clientes.id == auth.user_id ).select().first()
+    usuario_log = "supervisor"
     #extraigo del usuario logueado el nombre 
-    vendedor_log = usuario_log.nombre
+    #vendedor_log = usuario_log.nombre
+    vendedor_log = usuario_log
     #agrego el usuario logueado en la sesion
     session["vendedor_log"] = vendedor_log
     #obtenemos de la tabla clientes los siguientes campos, el id, el nombre
@@ -43,7 +45,7 @@ def CancelarVenta():
     del session["items_venta"]
     return dict()
 
-def VentasLocalCarga():
+def VentasCarga():
     #importamos la fecha del sistema
     import time
     #verificamos si la vista nos devuelve un nombre
@@ -101,7 +103,7 @@ def VentaLocalReporte():
 def GenerarFactura():
     # creamos un registro de factura (encabezado) 
     # UDS DEBEN TRAER LOS DATOS DE SU SISTEMA (tablas cliente, productos, etc.)
-    moneda = db(db.moneda.codigo=="DOL").select().first()
+###    moneda = db(db.moneda.codigo=="DOL").select().first()
     # busco el registro del cliente en la base (usando el id de la sesion)
     id_cliente = session["id_cliente"]
     reg_cliente = db(db.clientes.id==id_cliente).select().first()
@@ -122,7 +124,8 @@ def GenerarFactura():
             provincia_cliente="Buenos Aires",
             email="chuchilandia",
             id_impositivo="2",
-            moneda_id=moneda.id,
+            #moneda_id=moneda.id,
+            moneda_id="4",
             )
 
     total_neto = 0
@@ -171,11 +174,7 @@ def listado_ventas():
 def reporte():
     "pagina de inicio del catalogo"
     listado=[]
-<<<<<<< local
     #ventas=db().select(db.ventas.articulo)
     #articulo=db().select(db.articulo.ALL)
     #relacionamos las tablas ventas con articulo
     #listado.append(ventas)
-=======
-    return dict (v=listado)
->>>>>>> other

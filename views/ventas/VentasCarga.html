@@ -1,0 +1,122 @@
+{{extend 'plantilla.html'}}
+<h1>Ventas carga</h1>
+<form class="form-horizontal" enctype="multipart/form-data" >
+
+   <!-- ------MOSTRAR VENDEDOR ACTUAL ------------------ -->
+  <div class="form-group">
+    <label for="userlogeado"  class="col-sm-1 control-label">Vendedor: </label>
+      <div class="col-sm-2">
+       <input type="text" class="form-control"></input>
+    </div>
+ </div>
+
+   <!-- ------MOSTRAR CLIENTE ACTUAL ------------------ -->
+
+<div class="form-group">
+    <label for="cliente"  class="col-sm-1 control-label">Cliente: </label>
+      <div class="col-sm-2">
+    <input type="text" class="form-control" value="{{=cliente_venta}}">
+      </div>
+
+</div>
+
+    </form>
+<tr>
+     <th></th>
+    <th></th>
+</tr>
+<!-- ------Seleccion de los productos------------------ -->
+
+<h4>Seleccion de producto</h4>
+<div class="form-group">
+    </div>
+<form class="form-horizontal" enctype="multipart/form-data" >
+
+                    <!-----ingreso del cod de barras--------- -->
+        <label for="campo_tipo" class="col-sm-1 control-label">ID PRODUCTO</label>   
+                  <div class="col-sm-3">
+                   <input type= "number" name="id_producto" class="form-control" id="campo_tipo" value ="">
+                   </div>
+
+
+                  <!-----ingreso la cantidad de producto------- -->
+        <label for="cant" class="col-sm-1 control-label">Cantidad</label>
+           <div class="col-sm-2">
+               <input type="number" name="cantidad" class="form-control" id="cantidad" placeholder="Ingrese cantidad" value ="1" > 
+            </div>
+    </div>
+<div class="form-group">
+        <div class="col-md-3">
+
+             <input type="submit" name="agregar_item" class="btn btn-primary" value="AGREGAR PRODUCTO">
+        </div>
+
+</form>
+                                                    <!----- SELECCION Y LISTADO DE PRODUCTOS --------- -->
+<form class="form-horizontal" action="{{=URL(c="ventas", f="confirmar")}}"  enctype="multipart/form-data" method="POST" >
+    <div class="form-group">
+        <div class="col-md-10">
+          <table class="table table-hover">
+                                          <!-----Creamos la tabla para mostrar los productos cargados-------->
+          <caption>Productos Agregados</caption>
+          <thead>
+            <tr>
+                <th>#</th>
+                <th class="">Nombre Producto</th>
+                <th class="">Marca</th>
+                <th class="">Descripcion Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>SubTotal</th>
+                <th>IVA</th>
+                <!-- <th>Stock Actual</th> -->
+                <th>Total</th>
+                <th>Opciones</th>
+            </tr>
+
+          </thead>
+              <!-----Obtengo los productos que fueron seleccionados y los guardamos en items_venta, calculo iva y subtotal------- -->
+        <tbody>
+            {{subtotal = 0}}
+            {{for i, item in enumerate(items_venta):}}
+              <tr>
+                <th scope="row">{{=item["id_producto"]}}</th>
+                <td >{{=item["nombre"]}}</td>
+                <td >{{=item["marca"]}}</td>
+                <td >{{=item["descripcion"]}}</td>
+                <td align="center">{{=item["cantidad"]}}</td>
+                <td align="center">{{=item["precio"]}}</td>
+                <td align="center">{{=item["precio"] * item["cantidad"]}}</td>
+                <td align="center">{{=item["precio"] * item["cantidad"] *item["alicuota_iva"]/100.00}}</td>
+                <td align="center">{{=item["precio"] * item["cantidad"] + item["precio"] * item["cantidad"] *item["alicuota_iva"]/100.00}}</td>
+                {{subtotal = subtotal + (item["precio"] * item["cantidad"] + item["precio"] * item["cantidad"] *item["alicuota_iva"]/100.00) }}
+                <td><a class="btn btn-default" role="button" href="{{=URL(c="ventas",f="Borrar_Item",vars={"pos":i})}}">Eliminar</a></td>
+
+            </tr>
+            {{pass}}
+        </tbody>
+        </table>
+        </div>
+        </div>
+    <div class="form-group">
+        <div class="col-md-3">
+        <table class="table table-bordered">
+        <tbody>
+            <tr> <th scope="row">Total $:</th> <td>{{=subtotal}}</td>
+            </tr>
+
+        </tbody>
+        </table>
+        </div>
+    </div>
+                                <!-----Nos lleva a la siguiente vista para confirmar la venta------- -->
+    <div class="form-group">
+        <div class="col-md-2">
+          <a type="cargar" class="btn btn-success" href="{{=URL(c="ventas",f="confirmar")}}">  Continuar <i class="glyphicon glyphicon-shopping-cart" ></i></a>
+        </div>
+                                <!-----Nos lleva a la vista para cancelar la venta------- -->
+    <a type="cargar" class="btn btn-danger" href="{{=URL(c="ventas",f="CancelarVenta")}}">  Cancelar Venta <i class="glyphicon glyphicon-remove" ></i></a>
+    </div>
+
+</form>
+<!--NOTA: {{=BEAUTIFY(response._vars)}}   trae todo lo que esta en el return del controlador -->
