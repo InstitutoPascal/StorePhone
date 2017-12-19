@@ -4,20 +4,21 @@ LISTA DE PRODUCTOS
 </H2>
 <table class="table table-hover">
     <TR><TH>NOMBRE</TH>
-        <TH>MODELO</TH>
+        <TH>MARCA</TH>
         <TH>LINEA</TH>
         <TH>FABRICACION</TH>
-        <TH>MARCA</TH>
+        <TH>ID PRODUCTO</TH>
         <TH>SISTEMA OPERATIVO</TH>
         <TH>STOCK</TH>
     </TR>
     {{for x in da: }}
     <TR><TD>{{=x.nombre}}</TD>
-        <TD></TD>
-        <TD></TD>
-        <TD></TD>
-        <TD></TD>
-        <TD></TD>
+        <TD>{{=x.marca}}</TD>
+        <TD>{{=x.linea}}</TD>
+        <TD>{{=x.fabricacion}}</TD>
+        <TD>{{=x.id}}</TD>
+        <TD>{{=x.sistema_operativo}}</TD>
+        <TD>{{=x.stock}}</TD>
         <TD></TD>
     </TR>
     {{pass}}
