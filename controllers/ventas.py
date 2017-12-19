@@ -171,4 +171,11 @@ def listado_ventas():
 def reporte():
     "pagina de inicio del catalogo"
     listado=[]
+<<<<<<< local
+    #ventas=db().select(db.ventas.articulo)
+    #articulo=db().select(db.articulo.ALL)
+    #relacionamos las tablas ventas con articulo
+    #listado.append(ventas)
+=======
     return dict (v=listado)
+>>>>>>> other

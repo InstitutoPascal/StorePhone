@@ -14,7 +14,7 @@ def obtener_cae():
     ta = WSAA().Autenticar("wsfe", "/home/leo/pyafipws/reingart.crt",
                                    "/home/leo/pyafipws/reingart.key", debug=True)
     wsfev1.SetTicketAcceso(ta)
-    wsfev1.Cuit = "20261463041"
+    wsfev1.Cuit = "20267565393"
 
     ok = wsfev1.Conectar()
 
@@ -96,7 +96,7 @@ def obtener_cae():
             "ErrMsg": wsfev1.ErrMsg,
           }
 
-def generar_pdf(): 
+def generar_pdf():
     CONFIG_FILE = "/home/leo/pyafipws/rece.ini"
 
     config = SafeConfigParser()
@@ -266,7 +266,7 @@ def generar_pdf():
 
     salida = "/tmp/factura.pdf"
     fepdf.GenerarPDF(archivo=salida)
-    ##fepdf.MostrarPDF(archivo=salida,imprimir=False)
+    fepdf.MostrarPDF(archivo=salida,imprimir=False)
 
     response.headers['Content-Type'] = "application/pdf"
     return open(salida, "rb")
