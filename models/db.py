@@ -99,7 +99,7 @@ db.define_table('clientes',
 	db.Field('direccion','string'),
     db.Field('ciudad','string'),
 	db.Field('dni','integer'),
-	db.Field('cuil','integer'),
+	db.Field('cuil','string'),
     db.Field('sexo'),
                 )
 
@@ -178,6 +178,21 @@ db.define_table('ventas_por_articulo',
     db.Field('articulo',db.articulo),
     db.Field('cantidad','integer'),
     db.Field('subtotal','integer'))
+
+db.define_table('pedidos',
+    db.Field('cliente',db.clientes),
+    db.Field('articulo',db.articulo),
+    db.Field('fecha','date'),
+#   db.Field('estados',db.estados),
+    db.Field('estado','string'),
+    db.Field('progreso','integer'),
+    db.Field('color','string'),
+    db.Field('cantidad','integer'))
+
+db.pedidos.articulo.requires=IS_IN_DB(db,db.articulo.id,'%(nombre)s')
+db.pedidos.cliente.requires=IS_IN_DB(db,db.clientes.id,'%(nombre)s')
+#db.pedidos.estados.requires=IS_IN_DB(db,db.estados.id,'%(nombre)s')
+
 
 db.define_table('estados_de_ventas',
     db.Field('estado','string'),
