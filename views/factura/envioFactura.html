@@ -1,0 +1,16 @@
+{{extend 'plantilla.html'}}
+
+<title>Factura Enviada</title>
+
+<div class=" col-md-4 col-md-offset-4">
+<div class="jumbotron " style="background-color:#DDFFFF">
+  <div class="container">
+      <center><h3><font color="blue">¡Factura Enviada!</font></h3><br></center>
+      <h4><center><font color="blue">{{=recibido}}</font></center></h4>
+      <br><br>
+    <center> <h1><span  class="glyphicon glyphicon-envelope"> </span> </center>
+     <br><br>
+    <center><a href="{{=URL(c='factura',f='obtenerDatosCliente')}}" type="submit" class="btn btn-info"><i class="glyphicon glyphicon-user"></i> Facturar a otro cliente</a></center>
+  </div>
+ </div>
+</div>

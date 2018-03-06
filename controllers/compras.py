@@ -68,7 +68,7 @@ def guardado():
     for item in session ["items_venta"]:
         db.compras.insert(
             N_Factura=session["nro_comprobante"],
-            fecha=session["fecha"],
+            #fecha=session["fecha"],
             p_unitario= item["precio"],
             proveedor= session["id_proveedor"],
             id_articulo=item["id"],

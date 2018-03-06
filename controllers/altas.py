@@ -2,7 +2,7 @@
 # intente algo como
 def index(): return dict(message="hello from altas.py")
 
-@auth.requires_membership(role='Administrador')
+#@auth.requires_membership(role='Administrador')
 def alta_cliente():
     form=SQLFORM(db.clientes)
     if form.accepts(request.vars, session):

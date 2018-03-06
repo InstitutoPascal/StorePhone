@@ -1,0 +1,50 @@
+{{extend 'plantilla.html'}}
+
+
+<title>Facturación</title>
+
+<div class="container">
+<br><br>
+    <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
+
+        <div class="panel panel panel-success" >
+            <div class="panel-heading">
+                <div class="panel-title text-center">Pedidos</div>
+            </div>
+
+            <div class="panel-body" >
+
+                <form name="form" id="form" class="form-horizontal" action="{{=URL(c="factura",f="cargarDatos")}}" enctype="multipart/form-data" method="POST">
+
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                         <select class="form-control" id="campo_pedidos" name="id_pedidos">
+                   <!------ recorro todos los campos con un for------->
+                   {{for reg_pedidos in lista_clientes:}}
+                 <!------ el value permite enviar el id que vamos a usar en sessions------->
+                   <option value="{{=reg_pedidos.id}}">{{=reg_pedidos.cliente.nombre}} - {{=reg_pedidos.articulo.nombre}} Cantidad : {{=reg_pedidos.cantidad}}</option>
+                  {{pass}}
+                   <!------ finalizamos el for------->
+                </select>
+
+                    </div>
+                           <br>
+                        </br>
+
+                    <div class="form-group">
+                        <!-- Button -->
+                        <div class="col-md-6,5 ">
+
+                           <button type="submit" class="btn btn-primary pull-right"><i class="glyphicon glyphicon-check"></i> Continuar</button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

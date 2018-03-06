@@ -7,19 +7,15 @@ VENTAS
         <TH>APELLIDO</TH>
         <TH>FECHA DE VENTA</TH>
         <TH>PRODUCTO</TH>
-        <TH>TOTAL</TH>
-        <TH>TIPO DE PAGO</TH>
+        <TH>PRECIO UNITARIO</TH>
         <TH>STOCK </TH>
-        <TH>ESTADO </TH>
-        <TH>ACCION</TH>
     </TR>
-    <TR><TD> Lucas</TD>
-        <TD>Noguera</TD>
-        <TD>7/5/2017</TD>
-        <TD>Samsung Galaxy J7</TD>
-        <TD>$6500</TD>
-        <TD>Debito</TD>
-        <td>12</td>
-        <TD>pendientes - confirmado - despachado -recibido - rechazado</TD>
-        <TD>confirmar - despachar -rechazar</TD>
+{{for x in dv:}}
+    <TR><TD> {{=x.cliente.nombre}}</TD>
+        <TD>{{=x.cliente.apellido}}</TD>
+        <TD>{{=x.fecha}}</TD>
+        <TD>{{=x.articulo.nombre}}</TD>
+        <TD>{{=x.articulo.precio}}</TD>
+        <td>{{=x.articulo.stock}}</td>
+{{pass}}
 </TABLE>

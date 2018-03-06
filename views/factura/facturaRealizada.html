@@ -1,0 +1,19 @@
+{{extend 'plantilla.html'}}
+
+<title>Factura Realizada</title>
+
+<div class=" col-md-6 col-md-offset-3">
+<div class="jumbotron" style="background-color:#ffffff">
+  <div class="container">
+      <center><h3><font color="green">Se Realizo La Factura Con Exito
+          </font></h3></center>
+      <br><br>
+    </center> <center> <h1><img src="{{=URL('static','/storephone.jpg')}}" width="250" height="200"</img> </center>
+     <br><br>
+<a href="{{=URL(c='factura',f='verFactura', args=(email, ))}}" type="submit" class="btn btn-success"><i class="glyphicon glyphicon-file"></i> Ver factura generada</a>
+<div class="col-md-7">
+<a href="{{=URL(c='factura',f='envioFactura', args=(email, ))}}" type="submit" class="btn btn-info"><i class="glyphicon glyphicon-envelope"></i> Enviar factura por email</a>
+</div>
+  </div>
+ </div>
+</div>

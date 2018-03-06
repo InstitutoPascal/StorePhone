@@ -13,7 +13,7 @@ LISTA DE COMPRAS
     </TR>
     {{for x in c: }}
     <TR><TD>{{=x.N_Factura}}</TD>
-        <TD>{{=x.fecha}}</TD>
+        <TD>{{#=x.fecha}}</TD>
         <TD>{{=x.p_unitario}}</TD>
         <TD>{{=x.proveedor}}</TD>
         <TD>{{=x.cantidad}}</TD>

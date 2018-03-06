@@ -2,6 +2,7 @@
 # try something like
 @auth.requires_login()
 def index():
+    
     "index del carrito"
     # creo una lista vacia en la sesion (para guardar los id de los articulos)
     if not session["carrito"]:
@@ -12,10 +13,12 @@ def index():
         session["carrito"].append(id_articulo)
     # busco todos los articulos cuyo id esté en la sesion (carrito)
     datos_articulo=[]
+    #for usuario_log in session ["comprador_log"]:
+     #   reg = db(db.clientes.clientes_id==clientes_id).select().first()
     for id_articulo in session ["carrito"]:
         reg = db(db.articulo.id==id_articulo).select().first()
         datos_articulo.append(reg)
-    return dict (da=datos_articulo)
+    return dict (da=datos_articulo,comprador_log=comprador_log)
 
 @auth.requires_login()
 def eliminar():
@@ -46,3 +49,14 @@ def confirmacion():
 def factura():
     "Factura de la compra"
     return dict(message="")
+
+
+
+def finalizarcompra():
+    request.vars["id_clientes"]
+    pedidos = db(db.clientes.clientes_id == session["id_clientes"] ).select().first()
+    #id_clientes = session["id_clientes"]
+    #reg_clientes = db(db.clientes.clientes_id==id_clientes).select().first()
+    #reg_cliente = db((db.clientes.clientes_id==id_clientes)&(db.pedidos.articulo ==  db.articulo.id_articulo)).select(db.articulo.nombre,db.articulo.precio).first()
+    #reg_cantidad = db((db.pedidos.id==id_pedidos)&(db.pedidos.articulo ==  db.articulo.id_articulo)).select(db.pedidos.cantidad).first()
+    return dict (pedidos=pedidos)

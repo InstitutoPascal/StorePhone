@@ -1,0 +1,22 @@
+{{extend 'plantilla.html'}}
+
+
+<title>Facturación</title>
+
+<br>
+<div class="container">
+    <div class="row">
+  <div class="col-md-6 col-md-offset-3">
+<div class="panel panel panel-success">
+  <div class="panel-heading"><center>Detalles sobre el cliente</center></div>
+  <table class="table">
+      <tbody>
+          <tr><td><strong>Nombre y apellido:   </strong>{{=nombreCliente}} {{=apellidoCliente}}</td></tr>
+          <tr><td><strong>Dni:   </strong>{{=dniCliente}}</td></tr>
+          <tr><td><strong>Dirección:    </strong>{{=direccionCliente}} {{=numeroDeCalleCliente}}</td></tr>
+          <tr><td><strong>Articulos:   </strong>{{=localidadCliente}}</td></tr>
+          <tr><td><strong>Unidades:   </strong>{{=planCliente}}</td></tr>
+      </tbody>
+      </table>
+</div>
+<center><a href="{{=URL(c='factura', f='generarFactura', args=(emailCliente,))}}" type="submit" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i> Facturar </a></center>

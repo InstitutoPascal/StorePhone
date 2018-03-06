@@ -92,20 +92,24 @@ auth.settings.reset_password_requires_verification = True
 # auth.enable_record_versioning(db)
 
 db.define_table('clientes',
-	db.Field('usuario','string'),
-	db.Field('password','password'),
+    db.Field('clientes_id', db.auth_user, default=auth.user_id ),
+	#db.Field('cliente_id', db.auth_user, default=auth.user_id, readable=False, writable=False),
 	db.Field('nombre','string'),
+    db.Field('usuario','string'),
 	db.Field('apellido','string'),
 	db.Field('direccion','string'),
     db.Field('ciudad','string'),
+    db.Field('localidad','string'),
+    db.Field('numero_de_calle','integer'),
+    db.Field('telefono','integer'),
 	db.Field('dni','integer'),
-	db.Field('cuil','string'),
+	db.Field('cuil','integer'),
     db.Field('sexo'),
                 )
 
-db.clientes.password.requires=IS_ALPHANUMERIC()
 db.clientes.sexo.requires=IS_IN_SET(['Masculino','Femenino'])
-#db.clientes.cuil.requires=IS_ALPHANUMERIC()
+#db.clientes.rol.requires=IS_IN_SET(['cliente'])
+db.clientes.cuil.requires=IS_ALPHANUMERIC()
 
 db.define_table('proveedor',
 	db.Field('nombre','string'),
@@ -163,11 +167,10 @@ db.compras.id_articulo.requires=IS_IN_DB(db,db.articulo.id,'%(nombre)s')
 
 db.define_table('ventas',
     db.Field('fecha','date'),
-    db.Field('N_Factura','integer'),
     db.Field('cliente',db.clientes),
-    db.Field('p_unitario','integer'),
     db.Field('detalle','string'),
-    db.Field('total','integer'),
+    db.Field('cantidad','integer'),
+    db.Field('total','string'),
     db.Field('articulo',db.articulo))
 
 db.ventas.cliente.requires=IS_IN_DB(db,db.clientes.id,'%(nombre)s')
@@ -179,25 +182,25 @@ db.define_table('ventas_por_articulo',
     db.Field('cantidad','integer'),
     db.Field('subtotal','integer'))
 
+db.define_table('estado',
+    db.Field('nombre','string'),
+    db.Field('progreso','integer'),
+    db.Field('color','string'))
+
+db.estado.nombre.requires=IS_IN_SET(['Pendiente','Facturado','Despachado','Entregado'])
+db.estado.color.requires=IS_IN_SET(['danger','success','info','warning'])
+
 db.define_table('pedidos',
     db.Field('cliente',db.clientes),
     db.Field('articulo',db.articulo),
     db.Field('fecha','date'),
-#   db.Field('estados',db.estados),
-    db.Field('estado','string'),
-    db.Field('progreso','integer'),
-    db.Field('color','string'),
+    db.Field('estado',db.estado),
     db.Field('cantidad','integer'))
 
 db.pedidos.articulo.requires=IS_IN_DB(db,db.articulo.id,'%(nombre)s')
 db.pedidos.cliente.requires=IS_IN_DB(db,db.clientes.id,'%(nombre)s')
-#db.pedidos.estados.requires=IS_IN_DB(db,db.estados.id,'%(nombre)s')
-
-
-db.define_table('estados_de_ventas',
-    db.Field('estado','string'),
-    db.Field('progreso','integer'),
-    db.Field('color','string'))
+#db.pedidos.estado.requires=IS_IN_SET(['Pendiente','Despachado','Entregado','Confirmado'])
+db.pedidos.estado.requires=IS_IN_DB(db,db.estado.id,'%(nombre)s')
 
 
 db.define_table('compras_por_articulo',

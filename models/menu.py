@@ -139,7 +139,7 @@ if "auth" in locals(): auth.wikimenu()
 if auth.has_membership(role='Supervisor'):
     response.menu+=[(T('Ventas'),False,'#',
                  [(T("Listado de Ventas"),False,URL(request.application,'ventas','listado_ventas'),[]),
-                  (T("Realizar Ventas"),False,URL(request.application,'ventas','VentasPedidos'),[]),],)]
+                 ],)]
 if auth.has_membership(role='Supervisor'):
     response.menu+=[(T('Productos'),False,'#',
                      [(T('Productos'),False,URL(request.application,'stock','listado'),[])],)]
@@ -147,6 +147,10 @@ if auth.has_membership(role='Supervisor'):
     response.menu+=[(T('Pedidos'),False,'#',
                      [(T('Pedidos'),False,URL(request.application,'pedidos','ListaPedidos'),[])],
                 )]
+    response.menu+=[(T('Facturar'),False,'#',
+                     [(T('Facturar Pedido'),False,URL(request.application,'factura','obtenerDatosCliente'),[])],
+                )]
+
 if auth.has_membership(role='Administrador'):
     response.menu+=[(T('ABM'),False,'#',
                  [(T('Altas'),False,'#',

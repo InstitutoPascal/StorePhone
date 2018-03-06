@@ -1,8 +1,47 @@
 # -*- coding: utf-8 -*-
+# intente algo como
+def obtenerDatosCliente():
+    campos = db.pedidos.id, db.pedidos.cliente, db.pedidos.articulo, db.pedidos.cantidad
+    criterio = db.pedidos.estado<2
+    lista_clientes = db(criterio).select(*campos)
+    if not lista_clientes:
+        mensaje = "No ha cargado clientes"
+    else:
+        mensaje = "Seleccione un cliente"
+    return dict(message=mensaje, lista_clientes=lista_clientes)
+
+##############################################################################################
+
+
+
+def cargarDatos():
+    #verificamos si la vista nos devuelve un nombre
+    if "id_pedidos" in request.vars:
+        session["id_pedidos"] = request.vars["id_pedidos"]  # traer del form y guardo en la sesion
+    pedidos = db(db.pedidos.id == session["id_pedidos"] ).select().first()#en base al id del cliente obtenido de la sesion, obtengo los datos del mismo
+    #localidad = db((db.clientes.id == session["id_cliente"]) & (db.clientes.localidad == db.localidades.id) ).select(db.localidades.localidad).first()
+
+    idPedidos=pedidos.id
+    nombreCliente = pedidos.cliente.nombre
+    apellidoCliente = pedidos.cliente.apellido
+    dniCliente = pedidos.cliente.dni
+    direccionCliente = pedidos.cliente.direccion
+    numeroDeCalleCliente = pedidos.cliente.numero_de_calle
+    emailCliente = pedidos.cliente.usuario
+    localidadCliente = pedidos.articulo.nombre
+    planCliente = pedidos.cantidad
+    
+    return dict (nombreCliente = nombreCliente, apellidoCliente = apellidoCliente, dniCliente = dniCliente, direccionCliente = direccionCliente, numeroDeCalleCliente = numeroDeCalleCliente, emailCliente=emailCliente, localidadCliente = localidadCliente, planCliente = planCliente,idPedidos = idPedidos)
+
+###############################################################################################################################################
+
 import datetime
 from ConfigParser import SafeConfigParser
+#response.view = "generic.html"
 
 def obtener_cae():
+    recibido=request.args[1]
+
     from pyafipws.wsaa import WSAA
     from pyafipws.wsfev1 import WSFEv1
 
@@ -83,7 +122,7 @@ def obtener_cae():
         )
 
     if wsfev1.CAE:
-        redirect(URL(f="generar_pdf", args=[factura_id]))
+        redirect(URL(f="facturaRealizada", args=[factura_id, recibido]))
     response.view = "generic.html"
     return {"Nro. Cbte. desde-hasta": wsfev1.CbtDesde,
             "Resultado": wsfev1.Resultado,
@@ -96,7 +135,8 @@ def obtener_cae():
             "ErrMsg": wsfev1.ErrMsg,
           }
 
-def generar_pdf():
+def facturaRealizada():
+    recibido=request.args[1]
     CONFIG_FILE = "/home/web2py/pyafipws/sp/rece1.ini"
 
     config = SafeConfigParser()
@@ -111,7 +151,8 @@ def generar_pdf():
     fepdf.CargarFormato(conf_fact.get("formato", "factura.csv"))
 
     # establezco formatos (cantidad de decimales) según configuración:
-    fepdf.FmtCantidad = conf_fact.get("fmt_cantidad", "0.2")
+    fepdf.FmtCantidad = conf_fact.get("fmt_cantidad", "0.2"
+ )
     fepdf.FmtPrecio = conf_fact.get("fmt_precio", "0.2")
 
 
@@ -153,8 +194,8 @@ def generar_pdf():
     idioma_cbte = 1                     # 1: es, 2: en, 3: pt
 
     # datos adicionales del encabezado:
-    nombre_cliente = reg.nombre_cliente
-    domicilio_cliente = reg.domicilio_cliente
+    nombre_cliente = reg.nombre_cliente.decode('utf-8')
+    domicilio_cliente = reg.domicilio_cliente.decode('utf-8')
     pais_dst_cmp = 212                  # 200: Argentina, ver tabla
     id_impositivo = reg.id_impositivo      # cat. iva (mercado interno)
     forma_pago = reg.forma_pago
@@ -177,7 +218,7 @@ def generar_pdf():
         idioma_cbte, motivo_obs)
 
     # completo campos extra del encabezado:
-    ok = fepdf.EstablecerParametro("localidad_cliente", "Hurlingham")
+    ok = fepdf.EstablecerParametro("localidad_cliente", reg.localidad_cliente.decode('utf-8'))
     ok = fepdf.EstablecerParametro("provincia_cliente", "Buenos Aires")
 
     # imprimir leyenda "Comprobante Autorizado" (constatar con WSCDC!)
@@ -223,34 +264,13 @@ def generar_pdf():
         fepdf.AgregarDetalleItem(u_mtx, cod_mtx, codigo, ds, qty, umed, 
                 precio, bonif, iva_id, imp_iva, importe, despacho, dato_a)
 
-    # descuento general (a tasa 21%):
-    u_mtx = cod_mtx = codigo = None
-    ds = u"Bonificación/Descuento 10%"
-    qty = precio = bonif = None
-    umed = 99
-    iva_id = 5
-    if tipo_cbte in (1, 2, 3, 4, 5, 34, 39, 51, 52, 53, 54, 60, 64):
-        # discriminar IVA si es clase A / M
-        imp_iva = -2.21
-    else:
-        imp_iva = None
-    importe = -12.10
-    fepdf.AgregarDetalleItem(u_mtx, cod_mtx, codigo, ds, qty, umed, 
-            precio, bonif, iva_id, imp_iva, importe, "")
-
-    # descripción (sin importes ni cantidad):
-    u_mtx = cod_mtx = codigo = None
-    qty = precio = bonif = iva_id = imp_iva = importe = None
-    umed = 0
-    ds = u"Descripción Ejemplo"
-    fepdf.AgregarDetalleItem(u_mtx, cod_mtx, codigo, ds, qty, umed, 
-            precio, bonif, iva_id, imp_iva, importe, "")
 
     # completo campos personalizados de la plantilla:
     fepdf.AgregarDato("custom-nro-cli", "Cod.123")
     fepdf.AgregarDato("custom-pedido", "1234")
     fepdf.AgregarDato("custom-remito", "12345")
     fepdf.AgregarDato("custom-transporte", "Camiones Ej.")
+    print "Prueba!"
 
     # datos fijos:
     for k, v in conf_pdf.items():
@@ -266,7 +286,121 @@ def generar_pdf():
 
     salida = "/tmp/factura.pdf"
     fepdf.GenerarPDF(archivo=salida)
-    fepdf.MostrarPDF(archivo=salida,imprimir=False)
+    return dict(email=recibido)
 
+
+
+
+
+
+##################################################
+def generarFactura():
+    recibido=request.args[0]
+    # creamos un registro de factura (encabezado) 
+    # UDS DEBEN TRAER LOS DATOS DE SU SISTEMA (tablas cliente, productos, etc.)
+    moneda = db(db.moneda.codigo=="DOL").select().first()
+    id_pedidos = session["id_pedidos"]
+    reg_pedidos = db(db.pedidos.id==id_pedidos).select().first()
+    #reg_localidad = db((db.clientes.id==id_cliente)&(db.clientes.localidad == db.localidades.id)).select(db.localidades.localidad).first()
+    fecha = datetime.datetime.now().strftime("%Y%m%d")
+    # busco el registro del cliente en la base (usando el id de la sesion)
+    factura_id = db.comprobante_afip.insert(
+            webservice="wsfev1",
+            #fecha_cbte=datetime.datetime.now(),
+            tipo_cbte=1,  # factura A, ver tabla tipos_cbte
+            punto_vta=PUNTO_VTA,
+            cbte_nro=1,
+            # Datos del cliente (traer de la tabla respectiva!!!!!!)
+            nombre_cliente=reg_pedidos.cliente.nombre +" "+ reg_pedidos.cliente.apellido,
+            tipo_doc=80,
+            concepto = 1,
+            fecha_venc_pago = fecha,
+            fecha_serv_desde = fecha,
+            fecha_serv_hasta = fecha,
+            nro_doc="20-26146304-1",
+            domicilio_cliente=reg_pedidos.cliente.direccion +" "+ str(reg_pedidos.cliente.numero_de_calle),
+            telefono_cliente=reg_pedidos.cliente.telefono,
+            localidad_cliente=reg_pedidos.cliente.localidad,
+            provincia_cliente="buenos aires",
+            email="prueba@ejemplo.com",
+            id_impositivo="Resp. Inscr.",
+            moneda_id=moneda.id,
+            )
+
+    reg_plan = db((db.pedidos.id==id_pedidos)&(db.pedidos.articulo ==  db.articulo.id_articulo)).select(db.articulo.nombre,db.articulo.precio).first()
+    reg_cantidad = db((db.pedidos.id==id_pedidos)&(db.pedidos.articulo ==  db.articulo.id_articulo)).select(db.pedidos.cantidad).first()
+    servicio = [
+           (str(reg_plan.nombre), reg_cantidad.cantidad, reg_plan.precio)
+
+        ]
+
+    total_neto = 0
+    total_iva = 0
+    for descripcion, cantidad, precio_un in servicio:
+        neto =  precio_un
+        importe_iva = neto * 0.21
+        subtotal = neto + importe_iva
+        total_neto = total_neto + neto
+        total_iva = total_iva + importe_iva
+        db.detalle_afip.insert(
+                comprobante_id=factura_id,
+                codigo="P001",
+                ds=descripcion,
+                precio=precio_un,
+ qty=cantidad,
+                umed=7,
+                iva_id=5,  # 21%
+                imp_iva=importe_iva,
+                imp_total=subtotal
+            )
+
+
+    # actualizar totales factura:
+    db(db.comprobante_afip.id == factura_id).update(
+             imp_total = total_neto + total_iva,
+             imp_tot_conc = 0,
+             imp_neto = total_neto,
+             impto_liq = total_iva,
+             ##imp_trib = "0.00"
+             imp_op_ex = 0,
+        )
+
+    ## db.alicutoa_iva.insert()
+    #datos_articulo=db().select(db.articulo.stock)
+    #stock=datos_articulo
+    #stockalt=(stock - reg_cantidad.cantidad)
+    #db(db.articulo.id==datos_articulo.id_articulo).update(stock=stockalt)
+    #db(query).update(name='Max')
+
+
+    redirect(URL(c="factura", f="obtener_cae", args=[factura_id, recibido]))
+
+    return dict(message="se creo la factura %s" % factura_id)
+
+##############################################################################################################
+
+
+
+def verFactura():
+    salida = "/tmp/factura.pdf"
     response.headers['Content-Type'] = "application/pdf"
     return open(salida, "rb")
+
+#################################################################################################################
+
+
+def envioFactura():
+    recibido=request.args[0]
+    from gluon.tools import Mail
+    mail = Mail()
+    mail.settings.server = 'smtp.gmail.com:587'
+    mail.settings.sender = 'storephone.celulares@gmail.com'
+    mail.settings.login = 'storephone.celulares@gmail.com:pascal2015'
+    mail.send(str(recibido),
+              'Envio de factura',
+              'Factura mensual',
+              attachments = mail.Attachment('/tmp/factura.pdf'))
+    id_pedidos = session["id_pedidos"]
+    reg_pedidos = db(db.pedidos.id==id_pedidos).select().first()
+    db(db.pedidos.id==id_pedidos).update(estado='2')
+    return dict(recibido=recibido)
